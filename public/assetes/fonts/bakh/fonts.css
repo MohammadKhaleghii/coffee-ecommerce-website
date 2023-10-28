@@ -1,0 +1,71 @@
+@font-face {
+	font-family: Bakh;
+	font-style: normal;
+	font-weight: 100;
+	src: url('./webfonts/woff/YekanBakhFaNum-Thin.woff') format('woff'),   
+	url('./webfonts/woff2/YekanBakhFaNum-Thin.woff2') format('woff2'),
+	url('./webfonts/TTF/YekanBakhFaNum-Thin.ttf') format('truetype');		
+}
+
+@font-face {
+	font-family: Bakh;
+	font-style: normal;
+	font-weight: 300;
+	src: url('./webfonts/woff/YekanBakhFaNum-Light.woff') format('woff'),   
+	url('./webfonts/woff2/YekanBakhFaNum-Light.woff2') format('woff2'),
+	url('./webfonts/TTF/YekanBakhFaNum-Light.ttf') format('truetype');	
+}
+
+@font-face {
+	font-family: Bakh;
+	font-style: normal;
+	font-weight: normal;
+	src: url('./webfonts/woff/YekanBakhFaNum-Regular.woff') format('woff'),   
+	url('./webfonts/woff2/YekanBakhFaNum-Regular.woff2') format('woff2'),
+	url('./webfonts/TTF/YekanBakhFaNum-Regular.ttf') format('truetype');		 
+}
+
+@font-face {
+	font-family: Bakh;
+	font-style: normal;
+	font-weight: 600;
+	src: url('./webfonts/woff/YekanBakhFaNum-SemiBold.woff') format('woff'),   
+	url('./webfonts/woff2/YekanBakhFaNum-SemiBold.woff2') format('woff2'),
+	url('./webfonts/TTF/YekanBakhFaNum-SemiBold.ttf') format('truetype');		 
+}
+
+@font-face {
+	font-family: Bakh;
+	font-style: normal;
+	font-weight: bold;
+	src: url('./webfonts/woff/YekanBakhFaNum-Bold.woff') format('woff'),   
+	url('./webfonts/woff2/YekanBakhFaNum-Bold.woff2') format('woff2'),
+	url('./webfonts/TTF/YekanBakhFaNum-Bold.ttf') format('truetype'); 
+}
+
+@font-face {
+	font-family: Bakh;
+	font-style: normal;
+	font-weight: 800;
+	src: url('./webfonts/woff/YekanBakhFaNum-ExtraBold.woff') format('woff'),   
+	url('./webfonts/woff2/YekanBakhFaNum-ExtraBold.woff2') format('woff2'),
+	url('./webfonts/TTF/YekanBakhFaNum-ExtraBold.ttf') format('truetype');		 
+}
+
+@font-face {
+	font-family: Bakh;
+	font-style: normal;
+	font-weight: 900;
+	src: url('./webfonts/woff/YekanBakhFaNum-Black.woff') format('woff'),   
+	url('./webfonts/woff2/YekanBakhFaNum-Black.woff2') format('woff2'),
+	url('./webfonts/TTF/YekanBakhFaNum-Black.ttf') format('truetype');		 
+}
+
+@font-face {
+	font-family: Bakh;
+	font-style: normal;
+	font-weight: 950;
+	src: url('./webfonts/woff/YekanBakhFaNum-ExtraBlack.woff') format('woff'),   
+	url('./webfonts/woff2/YekanBakhFaNum-ExtraBlack.woff2') format('woff2'),
+	url('./webfonts/TTF/YekanBakhFaNum-ExtraBlack.ttf') format('truetype');		 
+}
