@@ -7,27 +7,27 @@ export default function Home() {
     {
       id: 1,
       categoryTitle: "عنوان تستی",
-      categoryImage: "/assets/image/home-assets/1.png",
+      categoryImage: "/assetes/image/home-assetes/1.png",
     },
     {
       id: 2,
       categoryTitle: "عنوان تستی",
-      categoryImage: "/assets/image/home-assets/1.png",
+      categoryImage: "/assetes/image/home-assetes/1.png",
     },
     {
       id: 3,
       categoryTitle: "عنوان تستی",
-      categoryImage: "/assets/image/home-assets/1.png",
+      categoryImage: "/assetes/image/home-assetes/1.png",
     },
     {
       id: 4,
       categoryTitle: "عنوان تستی",
-      categoryImage: "/assets/image/home-assets/1.png",
+      categoryImage: "/assetes/image/home-assetes/1.png",
     },
     {
       id: 5,
       categoryTitle: "عنوان تستی",
-      categoryImage: "/assets/image/home-assets/1.png",
+      categoryImage: "/assetes/image/home-assetes/1.png",
     },
   ];
 
@@ -35,8 +35,8 @@ export default function Home() {
     {
       id: 1,
       productTitle: "قهوه",
-      productImage: "/assets/image/home-assets/2.jpg",
-      productPrice: 5.99,
+      productImage: "/assetes/image/home-assetes/2.jpg",
+      productPrice: 59900,
       productCombination: {
         item1: "نوع A",
         item2: "نوع B",
@@ -45,8 +45,8 @@ export default function Home() {
     {
       id: 2,
       productTitle: "کاپوچینو",
-      productImage: "/assets/image/home-assets/2.jpg",
-      productPrice: 6.99,
+      productImage: "/assetes/image/home-assetes/2.jpg",
+      productPrice: 60000,
       productCombination: {
         item1: "شیرین",
         item2: "تلخ",
@@ -55,8 +55,8 @@ export default function Home() {
     {
       id: 3,
       productTitle: "لاته",
-      productImage: "/assets/image/home-assets/2.jpg",
-      productPrice: 7.99,
+      productImage: "/assetes/image/home-assetes/2.jpg",
+      productPrice: 72000,
       productCombination: {
         item1: "بزرگ",
         item2: "کوچک",
@@ -65,8 +65,8 @@ export default function Home() {
     {
       id: 4,
       productTitle: "اسپرسو",
-      productImage: "/assets/image/home-assets/2.jpg",
-      productPrice: 4.99,
+      productImage: "/assetes/image/home-assetes/2.jpg",
+      productPrice: 420010,
       productCombination: {
         item1: "قوی",
         item2: "ملایم",
@@ -78,9 +78,22 @@ export default function Home() {
       <section>
         <CategoryList title={"دسته بندی محصولات"} categoryList={categoryList} />
       </section>
-      <section className="pt-[92px]">
+      <section className="pt-8 pb-5">
+        <ProductContainer productList={productList} title={"پرفروش ترین‌ها"} />
+      </section>
+      <section className=" pb-10">
         <ProductContainer productList={productList} title={""} />
       </section>
+      <section className="pt-10 pb-10 w-full h-auto lg:px-[130px] px-5">
+        <img
+          src="/assetes/image/home-assetes/3.png"
+          className="w-full h-auto"
+          alt=""
+        />
+      </section>
+      {/* <section className=" pb-10 bg-[#F9C06A]">
+        <ProductContainer productList={productList} title={"محبوب ترین ها"} />
+      </section> */}
     </PageLayout>
   );
 }
