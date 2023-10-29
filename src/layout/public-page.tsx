@@ -118,9 +118,9 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
     ]
     return (
         <div className='max-w-screen-2xl min-w-[360px] my-0 mx-auto'>
-            <header className='lg:px-32  flex items-center justify-between bg-[#3F2F2A] lg:h-20 rounded-md mt-8 '>
+            <header className='lg:px-32 flex items-center justify-between bg-[#3F2F2A] lg:h-20 rounded-md mt-8 '>
                 <nav >
-                    <div className='flex items-center justify-start '>
+                    <div className='flex items-center justify-start'>
                         <Link to={"/"}>
                             <img src={logoPath} alt="" className='pl-14' />
                         </Link>
@@ -142,7 +142,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
             <main>
                 {children}
             </main>
-            <footer className='h-[700px] lg:px-32 flex flex-col justify-between bg-[#3F2F2A] rounded-t-md pt-20 gap-x-12'>
+            <footer className=' lg:px-32 flex flex-col justify-between bg-[#3F2F2A] rounded-t-md pt-20 gap-x-12'>
                 <section className='text-primary-10'>
                     <img src={logoPath} />
                     <div className='flex justify-center '>
@@ -207,12 +207,10 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
 
                 </section>
                 <section className='pb-8'>
-                    <p className='text-white text-sm leading-9 font-normal'>
+                    <p className='text-primary-10 text-sm leading-8 font-normal'>
                         کافینا گسترده ترین فروش قهوه و چای تخصصی در سراسر جهان. از دانه‌های اسپرسوی طعم‌دار، ما انواعی از محصولات را  ارائه می‌دهیم تا کام هر مشتری را وسوسه کند. برای کسانی که به دنبال تجهیزات منحصر به فرد دم کردن هستند، همچنین طیف کاملی از اسپرسوسازهای با کیفیت، آسیاب، آبجو، پرس فرنچ و غیره.  همه اینها به راحتی با کلیک یک دکمه در دسترس هستند!
                     </p>
-
                 </section>
-                <section></section>
             </footer>
         </div>
     )
