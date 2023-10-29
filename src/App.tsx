@@ -5,6 +5,7 @@ import Suppout from "./pages/suppout";
 import Contact from "./pages/contact";
 import About from "./pages/about";
 import Cart from "./pages/cart";
+import User from "./pages/user";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route Component={Contact} path="/contact" />
       <Route Component={About} path="/about" />
       <Route Component={Cart} path="/cart" />
+      <Route Component={User} path="/user" />
     </Routes>
   );
 }
