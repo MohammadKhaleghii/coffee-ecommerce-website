@@ -1,4 +1,5 @@
 import { thousandSeparator } from "../../utilities/thousand-separator";
+import ProductCartButton from "../product-card-button/product-card-button";
 import { ProductCardProps } from "./product-card.interface";
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
@@ -25,11 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
             {thousandSeparator(props.ProductDetails.productPrice)} تومان
           </p>
         </div>
-        <div className="flex flex-row gap-x-2 justify-center items-center pb-2">
-          <button className="rounded-full bg-[#F9C06A] px-4 py-2 w-fit border-none">
-            افزودن به سبد خرید
-          </button>
-        </div>
+        <ProductCartButton/>
       </div>
     </>
   );
