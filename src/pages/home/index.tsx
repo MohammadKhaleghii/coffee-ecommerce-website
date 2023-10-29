@@ -1,5 +1,6 @@
 import CategoryList from "../../container/category-list/category-list";
 import ProductContainer from "../../container/product-container/product-container";
+import Slider from "../../container/slider/slider";
 import PageLayout from "./../../layout/public-page";
 
 export default function Home() {
@@ -73,8 +74,22 @@ export default function Home() {
       },
     },
   ];
+
+  const sliderItem = [
+    {
+      sliderPath: "/assetes/image/home-assetes/4.webp",
+      sliderHref: "",
+    },
+    {
+      sliderPath: "/assetes/image/home-assetes/5.webp",
+      sliderHref: "",
+    },
+  ];
   return (
     <PageLayout>
+      <section className="pt-5  "> 
+        <Slider slider={sliderItem} />
+      </section>
       <section>
         <CategoryList title={"دسته بندی محصولات"} categoryList={categoryList} />
       </section>
