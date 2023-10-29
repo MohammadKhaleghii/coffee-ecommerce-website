@@ -32,7 +32,7 @@ export default function PageLayout({
   const navigationIcons = [
     {
       iconClassName: "fa-regular fa-user",
-      href: "#",
+      href: "/user",
     },
     {
       iconClassName: "fa-regular fa-cart-shopping",
