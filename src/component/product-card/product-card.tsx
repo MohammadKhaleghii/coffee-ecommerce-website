@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           </h2>
           <p className="flex flex-row gap-x-2 justify-center items-center font-bold text-sm ">
             <span>{props.ProductDetails.productCombination.item1}</span>
-            <div className="border border-black h-5"></div>
+            <span className="border border-black h-5"></span>
             <span>{props.ProductDetails.productCombination.item2}</span>
           </p>
           <p className="flex flex-row gap-x-2 justify-center items-center font-bold text-sm pb-4">
