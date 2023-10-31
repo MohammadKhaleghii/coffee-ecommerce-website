@@ -137,7 +137,7 @@ export default function PageLayout({
         <div className="flex items-center justify-center">
           <ul className="flex items-center justify-start gap-x-12 ">
             {navigationIcons.map((navItem, index) => (
-              <Link to={navItem.href}>
+              <Link key={index} to={navItem.href}>
                 <i
                   key={index}
                   className={`${navItem.iconClassName} text-primary-10 text-2xl`}
@@ -204,7 +204,10 @@ export default function PageLayout({
               />
               <div className="flex items-center justify-center gap-x-4">
                 {certificate.map((item, index) => (
-                  <div className="rounded-xl bg-white h-auto px-3 py-3">
+                  <div
+                    key={index}
+                    className="rounded-xl bg-white h-auto px-3 py-3"
+                  >
                     <img src={item.imagePath} alt="" />
                   </div>
                 ))}
