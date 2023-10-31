@@ -87,7 +87,7 @@ export default function Home() {
   ];
   return (
     <PageLayout>
-      <section className="pt-5  "> 
+      <section className="pt-5  ">
         <Slider slider={sliderItem} />
       </section>
       <section>
@@ -96,9 +96,6 @@ export default function Home() {
       <section className="pt-8 pb-5">
         <ProductContainer productList={productList} title={"پرفروش ترین‌ها"} />
       </section>
-      <section className=" pb-10">
-        <ProductContainer productList={productList} title={""} />
-      </section>
       <section className="pt-10 pb-10 w-full h-auto lg:px-[130px] px-5">
         <img
           src="/assetes/image/home-assetes/3.png"
@@ -106,6 +103,10 @@ export default function Home() {
           alt=""
         />
       </section>
+      <section className=" pb-10">
+        <ProductContainer productList={productList} title={""} />
+      </section>
+
       {/* <section className=" pb-10 bg-[#F9C06A]">
         <ProductContainer productList={productList} title={"محبوب ترین ها"} />
       </section> */}
