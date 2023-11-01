@@ -38,10 +38,7 @@ export default function PageLayout({
       iconClassName: "fa-regular fa-cart-shopping",
       href: "/cart",
     },
-    {
-      iconClassName: "fas fa-search",
-      href: "#",
-    },
+   
   ];
   const contactInfo = [
     {
