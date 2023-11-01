@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import {
+  getAuth,
+  signInWithPopup,
+  signInWithRedirect,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { getDoc, setDoc, getFirestore, doc } from "firebase/firestore";
+import toast from "react-hot-toast";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBySnltyI6tChuFktBkvFPPrn--TqK2sjw",
@@ -11,5 +18,35 @@ const firebaseConfig = {
   measurementId: "G-C4JPJDW2HQ",
 };
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const firebaseapp = initializeApp(firebaseConfig);
+
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "select_account",
+});
+export const auth = getAuth();
+export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+export const db = getFirestore();
+
+export const createUserDocumentFromAuth = async (user: any) => {
+  console.log(user);
+  const userDocRef = doc(db, "users", user.uid);
+  const userSnapShot = getDoc(userDocRef);
+  if (!(await userSnapShot).exists()) {
+    const { email, displayName } = user;
+    const createAt = new Date();
+
+    try {
+      await setDoc(userDocRef, {
+        email,
+        displayName,
+        createAt,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("خطایی رخ داده است، لطفا دوباره امتحان کنید");
+    }
+  }
+  return userDocRef;
+};
