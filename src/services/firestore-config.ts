@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth , signInWithPopup , signInWithRedirect , GoogleAuthProvider } from "firebase/auth"
 
 const firebaseConfig = {
   apiKey: "AIzaSyBySnltyI6tChuFktBkvFPPrn--TqK2sjw",
