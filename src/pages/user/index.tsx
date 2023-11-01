@@ -1,6 +1,34 @@
+import { useFormik } from "formik";
+import {
+  createUserDocumentFromAuth,
+  signInWithGooglePopup,
+} from "../../services/firestore-config";
 import PageLayout from "./../../layout/public-page";
+import * as Yup from "yup";
 
 export default function User() {
+  const logGoogleUser = async () => {
+    const { user } = await signInWithGooglePopup();
+    const userDocRef = await createUserDocumentFromAuth(user);
+    console.log(userDocRef);
+  };
+
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  const validationSchema = Yup.object({
+    email: Yup.string().email().required("آدرس ایمیل الزامی می باشد"),
+    password: Yup.string().required("پسورد الزامی می باشد"),
+  });
+  const { handleSubmit, errors, values, getFieldProps } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <PageLayout>
       <section className="px-2">
@@ -11,18 +39,22 @@ export default function User() {
                 ورود / ثبت نام
               </span>
             </h2>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-6">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   <i className="fas fa-envelope ml-2"></i>ایمیل
                 </label>
                 <div>
                   <input
+                    {...getFieldProps("email")}
                     id="email"
                     type="email"
                     className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="ایمیل خود را وارد کنید"
                   />
+                  <div className="text-red-500 text-sm pt-2 font-bold">
+                    {errors.email}
+                  </div>
                 </div>
               </div>
               <div className="mb-6">
@@ -31,11 +63,15 @@ export default function User() {
                 </label>
                 <div>
                   <input
+                    {...getFieldProps("password")}
                     id="password"
                     type="password"
                     className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="رمز عبور خود را وارد کنید"
                   />
+                </div>
+                <div className="text-red-500 text-sm pt-2 font-bold">
+                  {errors.password}
                 </div>
               </div>
               <div className="flex items-center justify-center">
@@ -57,12 +93,12 @@ export default function User() {
                 ثبت نام از طریق:
               </p>
               <div className="flex justify-center mt-2">
-                <a
-                  href="#"
+                <button
+                  onClick={logGoogleUser}
                   className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2"
                 >
                   <i className="fab fa-google"></i>
-                </a>
+                </button>
               </div>
             </div>
           </div>
