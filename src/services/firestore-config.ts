@@ -2,8 +2,8 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   signInWithPopup,
-  signInWithRedirect,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getDoc, setDoc, getFirestore, doc } from "firebase/firestore";
 import toast from "react-hot-toast";
@@ -29,7 +29,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (user: any) => {
+export const createUserDocumentFromAuth: any = async (user: any) => {
   console.log(user);
   const userDocRef = doc(db, "users", user.uid);
   const userSnapShot = getDoc(userDocRef);
@@ -49,4 +49,13 @@ export const createUserDocumentFromAuth = async (user: any) => {
     }
   }
   return userDocRef;
+};
+
+export const signInwithGoogleEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  if (!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
 };
