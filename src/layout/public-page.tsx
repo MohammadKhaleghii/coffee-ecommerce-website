@@ -16,10 +16,7 @@ export default function PageLayout({
       title: "فروشگاه",
       href: "/shop",
     },
-    {
-      title: "پشتیبانی",
-      href: "/suppout",
-    },
+  
     {
       title: "درباره ما",
       href: "/about",
@@ -81,10 +78,7 @@ export default function PageLayout({
       title: "درباره ما",
       href: "#",
     },
-    {
-      title: "پشتیبانی",
-      href: "#",
-    },
+  
     {
       title: "ارتباط باما",
       href: "#",
