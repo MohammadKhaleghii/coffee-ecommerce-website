@@ -1,7 +1,11 @@
 import CategoryList from "../../container/category-list/category-list";
-import ProductContainer from "../../container/product-container/product-container";
+import ProductCartSkeleton from "../../container/skeleton/product-cart";
 import Slider from "../../container/slider/slider";
 import PageLayout from "./../../layout/public-page";
+import { Suspense, lazy } from "react";
+const ProductContainer = lazy(
+  () => import("../../container/product-container/product-container")
+);
 
 export default function Home() {
   const categoryList = [
@@ -94,7 +98,12 @@ export default function Home() {
         <CategoryList title={"دسته بندی محصولات"} categoryList={categoryList} />
       </section>
       <section className="pt-8 pb-5">
-        <ProductContainer productList={productList} title={"پرفروش ترین‌ها"} />
+        <Suspense fallback={<ProductCartSkeleton />}>
+          <ProductContainer
+            productList={productList}
+            title={"پرفروش ترین‌ها"}
+          />
+        </Suspense>
       </section>
       <section className="pt-10 pb-10 w-full h-auto lg:px-[130px] px-5">
         <img
@@ -104,12 +113,10 @@ export default function Home() {
         />
       </section>
       <section className=" pb-10">
-        <ProductContainer productList={productList} title={""} />
+        <Suspense fallback={<ProductCartSkeleton />}>
+          <ProductContainer productList={productList} title={""} />
+        </Suspense>
       </section>
-
-      {/* <section className=" pb-10 bg-[#F9C06A]">
-        <ProductContainer productList={productList} title={"محبوب ترین ها"} />
-      </section> */}
     </PageLayout>
   );
 }
