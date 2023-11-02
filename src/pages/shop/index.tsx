@@ -1,5 +1,9 @@
 import ProductContainer from "../../container/product-container/product-container";
 import PageLayout from "./../../layout/public-page";
+import { Suspense, lazy } from "react";
+const ProductCartSkeleton = lazy(
+  () => import("../../container/skeleton/product-cart")
+);
 
 export default function Shop() {
   const productList = [
@@ -164,11 +168,13 @@ export default function Shop() {
       },
     },
   ];
- 
+
   return (
     <PageLayout>
       <section className="px-2 pb-10">
-        <ProductContainer productList={productList} title="" />
+        <Suspense fallback={<ProductCartSkeleton />}>
+          <ProductContainer productList={productList} title={""} />
+        </Suspense>
       </section>
     </PageLayout>
   );
