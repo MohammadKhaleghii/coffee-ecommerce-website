@@ -16,10 +16,10 @@ export default function PageLayout({
       title: "فروشگاه",
       href: "/shop",
     },
-  
+
     {
-      title: "درباره ما",
-      href: "/about",
+      title: "درباره من",
+      href: "http://anothermohammad.ir/",
     },
     {
       title: "تماس ما",
@@ -75,10 +75,10 @@ export default function PageLayout({
   ];
   const contactUsItem = [
     {
-      title: "درباره ما",
-      href: "#",
+      title: "درباره من",
+      href: "http://anothermohammad.ir/",
     },
-  
+
     {
       title: "ارتباط باما",
       href: "#",
