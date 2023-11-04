@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { getDoc, setDoc, getFirestore, doc } from "firebase/firestore";
 import toast from "react-hot-toast";
@@ -29,8 +30,42 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth: any = async (user: any) => {
-  console.log(user);
+export const createUserDocumentFromAuth: any = async (
+  user: any,
+  additionalData: any = {}
+) => {
+  const userDocRef = doc(db, "users", user.uid);
+  const userSnapShot = getDoc(userDocRef);
+  if (!(await userSnapShot).exists()) {
+    const { email, displayName } = user;
+    const createAt = new Date();
+
+    try {
+      await setDoc(userDocRef, {
+        email,
+        displayName,
+        createAt,
+        ...additionalData,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("خطایی رخ داده است، لطفا دوباره امتحان کنید");
+    }
+  }
+  return userDocRef;
+};
+
+export const signInwithGoogleEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  if (!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
+};
+
+export const createUserDocumentWithAuth: any = async (user: any) => {
+  if (!user) return;
   const userDocRef = doc(db, "users", user.uid);
   const userSnapShot = getDoc(userDocRef);
   if (!(await userSnapShot).exists()) {
@@ -51,11 +86,10 @@ export const createUserDocumentFromAuth: any = async (user: any) => {
   return userDocRef;
 };
 
-export const signInwithGoogleEmailAndPassword = async (
+export const createAuthUserWithEmailAndPassword = async (
   email: string,
   password: string
 ) => {
   if (!email || !password) return;
-
-  return await signInWithEmailAndPassword(auth, email, password);
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
