@@ -9,7 +9,6 @@ import PageLayout from "./../../layout/public-page";
 import * as Yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
-import { DocumentReference } from "firebase/firestore";
 import ButtonSpinner from "../../component/buttons-spinner/button-spinner.component";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,22 +20,25 @@ export default function User() {
   const dispatch = useDispatch();
   const userSlice = useSelector((state: any) => state.user);
   const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
+  
+  const handleCurrentUser = (
+    displayName: string | null,
+    email: string | null
+  ) => {
+    const userData: UserSliceTypes = {
+      displayName: displayName ?? "",
+      email: email ?? "",
+    };
+    dispatch(currentUser(userData));
+    toast.success("ورود شما با موفقیت انجام شد");
+  };
   const userGoogleLogin = async () => {
     setGoogleLoginLoading(true);
     try {
       const { user } = await signInWithGooglePopup();
       await createUserDocumentFromAuth(user);
       setGoogleLoginLoading(false);
-      if (
-        typeof user.displayName === "string" &&
-        typeof user.email === "string"
-      ) {
-        const userData: UserSliceTypes = {
-          displayName: user.displayName,
-          email: user.email,
-        };
-        dispatch(currentUser(userData));
-      }
+      handleCurrentUser(user.displayName, user.email);
     } catch (error: any) {
       switch (error.code) {
         case "auth/network-request-failed":
@@ -67,7 +69,10 @@ export default function User() {
     onSubmit: (values) => {
       signInwithGoogleEmailAndPassword(values.email, values.password)
         .then((response) => {
-          console.log(response);
+          if (response) {
+            handleCurrentUser(response.user.displayName, response.user.email);
+            signInFormFormik.resetForm();
+          }
         })
         .catch((error) => {
           switch (error.code) {
@@ -118,10 +123,12 @@ export default function User() {
       )
         .then((response) => {
           if (response) {
-            const createUser = createUserDocumentFromAuth(response.user, {
+            createUserDocumentFromAuth(response.user, {
               displayName: values.fullName,
             });
-            toast.success("ثبت نام شما با موفیت انجام شد");
+            if (response)
+              handleCurrentUser(response.user.displayName, response.user.email);
+            signUpFormFormik.resetForm();
           }
         })
         .catch((error) => {
@@ -168,14 +175,17 @@ export default function User() {
                     <div>
                       <input
                         {...signInFormFormik.getFieldProps("email")}
-                        id="email"
                         type="email"
                         className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="ایمیل خود را وارد کنید"
                       />
-                      <div className="text-red-500 text-sm pt-2 font-bold">
-                        {signInFormFormik.errors.email}
-                      </div>
+
+                      {signInFormFormik.touched.email &&
+                      signInFormFormik.errors.email ? (
+                        <div className="text-red-500 text-sm pt-2 font-bold">
+                          {signInFormFormik.errors.email}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                   <div className="mb-6">
@@ -186,15 +196,18 @@ export default function User() {
                       <input
                         {...signInFormFormik.getFieldProps("password")}
                         autoComplete="yes"
-                        id="password"
                         type="password"
                         className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="رمز عبور خود را وارد کنید"
                       />
                     </div>
-                    <div className="text-red-500 text-sm pt-2 font-bold">
-                      {signInFormFormik.errors.password}
-                    </div>
+
+                    {signInFormFormik.touched.password &&
+                    signInFormFormik.errors.password ? (
+                      <div className="text-red-500 text-sm pt-2 font-bold">
+                        {signInFormFormik.errors.password}
+                      </div>
+                    ) : null}
                   </div>
 
                   <div className="flex items-center justify-center">
@@ -214,15 +227,17 @@ export default function User() {
                     </label>
                     <div>
                       <input
-                        id="signUpEmail"
                         type="email"
                         className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="ایمیل خود را وارد کنید"
                         {...signUpFormFormik.getFieldProps("signUpEmail")}
                       />
-                      <div className="text-red-500 text-sm pt-2 font-bold">
-                        {signUpFormFormik.errors.signUpEmail}
-                      </div>
+                      {signUpFormFormik.touched.signUpEmail &&
+                      signUpFormFormik.errors.signUpEmail ? (
+                        <div className="text-red-500 text-sm pt-2 font-bold">
+                          {signUpFormFormik.errors.signUpEmail}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                   <div className="mb-6">
@@ -231,15 +246,17 @@ export default function User() {
                     </label>
                     <div>
                       <input
-                        id="fullName"
-                        type="fullName"
+                        type="text"
                         className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="ایمیل خود را وارد کنید"
+                        placeholder="نام و نام خانوادگی خود را وارد کنید"
                         {...signUpFormFormik.getFieldProps("fullName")}
                       />
-                      <div className="text-red-500 text-sm pt-2 font-bold">
-                        {signUpFormFormik.errors.fullName}
-                      </div>
+                      {signUpFormFormik.touched.fullName &&
+                      signUpFormFormik.errors.fullName ? (
+                        <div className="text-red-500 text-sm pt-2 font-bold">
+                          {signUpFormFormik.errors.fullName}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                   <div className="mb-6">
@@ -249,16 +266,18 @@ export default function User() {
                     <div>
                       <input
                         autoComplete="yes"
-                        id="signUpPassword"
                         type="password"
                         className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="رمز عبور خود را وارد کنید"
                         {...signUpFormFormik.getFieldProps("signUpPassword")}
                       />
                     </div>
-                    <div className="text-red-500 text-sm pt-2 font-bold">
-                      {signUpFormFormik.errors.signUpPassword}
-                    </div>
+                    {signUpFormFormik.touched.signUpPassword &&
+                    signUpFormFormik.errors.signUpPassword ? (
+                      <div className="text-red-500 text-sm pt-2 font-bold">
+                        {signUpFormFormik.errors.signUpPassword}
+                      </div>
+                    ) : null}
                   </div>
                   <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -267,16 +286,18 @@ export default function User() {
                     <div>
                       <input
                         autoComplete="yes"
-                        id="repeatPassword"
                         type="password"
                         className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="رمز عبور خود را وارد کنید"
+                        placeholder="تکرار رمز عبور خود را وارد کنید"
                         {...signUpFormFormik.getFieldProps("repeatPassword")}
                       />
                     </div>
-                    <div className="text-red-500 text-sm pt-2 font-bold">
-                      {signUpFormFormik.errors.repeatPassword}
-                    </div>
+                    {signUpFormFormik.touched.repeatPassword &&
+                    signUpFormFormik.errors.repeatPassword ? (
+                      <div className="text-red-500 text-sm pt-2 font-bold">
+                        {signUpFormFormik.errors.repeatPassword}
+                      </div>
+                    ) : null}
                   </div>
 
                   <div className="flex items-center justify-center">
