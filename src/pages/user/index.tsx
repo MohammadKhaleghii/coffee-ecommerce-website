@@ -25,11 +25,16 @@ export default function User() {
         user
       );
       setGoogleLoginLoading(false);
-      const userData: UserSliceTypes = {
-        displayName: user.displayName,
-        email: user.email,
-      };
-      dispatch(currentUser(userData));
+      if (
+        typeof user.displayName === "string" &&
+        typeof user.email === "string"
+      ) {
+        const userData: UserSliceTypes = {
+          displayName: user.displayName,
+          email: user.email,
+        };
+        dispatch(currentUser(userData));
+      }
     } catch (error: any) {
       switch (error.code) {
         case "auth/network-request-failed":
