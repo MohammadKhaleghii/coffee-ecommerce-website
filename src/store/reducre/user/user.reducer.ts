@@ -8,7 +8,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     removeCurrnetUser(state) {
-      state = null;
+      return (state = null);
     },
     currentUser(state, action) {
       return (state = action.payload);
