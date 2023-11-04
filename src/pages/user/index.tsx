@@ -11,8 +11,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { DocumentReference } from "firebase/firestore";
 import ButtonSpinner from "../../component/buttons-spinner/button-spinner.component";
-
+import { useDispatch } from "react-redux";
+import { currentUser } from "../../store/reducre/user/user.reducer";
+import { UserSliceTypes } from "../../store/reducre/user/user.types";
 export default function User() {
+  const dispatch = useDispatch();
   const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
   const userGoogleLogin = async () => {
     setGoogleLoginLoading(true);
@@ -22,6 +25,11 @@ export default function User() {
         user
       );
       setGoogleLoginLoading(false);
+      const userData: UserSliceTypes = {
+        displayName: user.displayName,
+        email: user.email,
+      };
+      dispatch(currentUser(userData));
     } catch (error: any) {
       switch (error.code) {
         case "auth/network-request-failed":
