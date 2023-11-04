@@ -5,7 +5,7 @@ import { userSlice } from "./reducre/user/user.reducer";
 
 const rootReducer = combineReducers({
   [cartSlice.name]: cartSlice.reducer,
-  [userSlice.name]: cartSlice.reducer,
+  [userSlice.name]: userSlice.reducer,
 });
 export const store = configureStore({
   reducer: rootReducer,
