@@ -25,10 +25,10 @@ export default function User() {
     } catch (error: any) {
       switch (error.code) {
         case "auth/network-request-failed":
-          toast("لطفا قند شکن خود را وصل کنید");
+          toast.error("لطفا قند شکن خود را وصل کنید");
           break;
         case "auth/popup-closed-by-user":
-          toast("مودال انتخاب ایمیل توسط شما بسته شد");
+          toast.error("مودال انتخاب ایمیل توسط شما بسته شد");
           break;
         default:
           console.error(error);
@@ -57,13 +57,13 @@ export default function User() {
         .catch((error) => {
           switch (error.code) {
             case "auth/invalid-login-credentials":
-              toast("لطفا مقادیر ورودی خود را بررسی کنید");
+              toast.error("لطفا مقادیر ورودی خود را بررسی کنید");
               break;
             case "auth/user-not-found":
-              toast("آدرس ایمیل شما یافت نشد");
+              toast.error("آدرس ایمیل شما یافت نشد");
               break;
             case "auth/network-request-failed":
-              toast("لطفا قند شکن خود را وصل کنید");
+              toast.error("لطفا قند شکن خود را وصل کنید");
               break;
             default:
               console.error(error);
@@ -106,12 +106,12 @@ export default function User() {
             const createUser = createUserDocumentFromAuth(response.user, {
               displayName: values.fullName,
             });
-            console.log(createUser);
+            toast.success("ثبت نام شما با موفیت انجام شد");
           }
         })
         .catch((error) => {
           if (error.code === "auth/email-already-in-use") {
-            toast("ایمیل شما از قبل ثبت شده است");
+            toast.error("ایمیل شما از قبل ثبت شده است");
           } else {
             console.error(error);
           }
