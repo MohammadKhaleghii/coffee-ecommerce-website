@@ -1,16 +1,41 @@
 import { useFormik } from "formik";
 import {
+  createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
   signInWithGooglePopup,
   signInwithGoogleEmailAndPassword,
 } from "../../services/firestore-config";
 import PageLayout from "./../../layout/public-page";
 import * as Yup from "yup";
+import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import { DocumentReference } from "firebase/firestore";
+import ButtonSpinner from "../../component/buttons-spinner/button-spinner.component";
 
 export default function User() {
+  const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
   const userGoogleLogin = async () => {
-    const { user } = await signInWithGooglePopup();
-    const userDocRef = await createUserDocumentFromAuth(user);
+    setGoogleLoginLoading(true);
+    try {
+      const { user } = await signInWithGooglePopup();
+      const userDocRef: DocumentReference = await createUserDocumentFromAuth(
+        user
+      );
+      setGoogleLoginLoading(false);
+    } catch (error: any) {
+      switch (error.code) {
+        case "auth/network-request-failed":
+          toast("لطفا قند شکن خود را وصل کنید");
+          break;
+        case "auth/popup-closed-by-user":
+          toast("مودال انتخاب ایمیل توسط شما بسته شد");
+          break;
+        default:
+          console.error(error);
+          break;
+      }
+      setGoogleLoginLoading(false);
+    }
   };
 
   const signInFormFormik = useFormik({
@@ -19,7 +44,9 @@ export default function User() {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email("فرمت وارد شده صحیح نمی باشد").required("آدرس ایمیل الزامی می باشد"),
+      email: Yup.string()
+        .email("فرمت وارد شده صحیح نمی باشد")
+        .required("آدرس ایمیل الزامی می باشد"),
       password: Yup.string().required("رمز عبور الزامی می باشد"),
     }),
     onSubmit: (values) => {
@@ -27,37 +54,67 @@ export default function User() {
         .then((response) => {
           console.log(response);
         })
-        .then((error) => {
-          console.log(error);
+        .catch((error) => {
+          switch (error.code) {
+            case "auth/invalid-login-credentials":
+              toast("لطفا مقادیر ورودی خود را بررسی کنید");
+              break;
+            case "auth/user-not-found":
+              toast("آدرس ایمیل شما یافت نشد");
+              break;
+            case "auth/network-request-failed":
+              toast("لطفا قند شکن خود را وصل کنید");
+              break;
+            default:
+              console.error(error);
+          }
         });
     },
   });
 
   const signUpFormFormik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
-      fullName: "",
+      signUpEmail: "",
+      signUpPassword: "",
       repeatPassword: "",
+      fullName: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email("فرمت وارد شده صحیح نمی باشد").required("وارد کردن آدرس ایمیل الزامی می باشد"),
-      password: Yup.string().required("وارد کردن رمز عبور الزامی می باشد"),
+      signUpEmail: Yup.string()
+        .email("فرمت وارد شده صحیح نمی باشد")
+        .required("وارد کردن آدرس ایمیل الزامی می باشد"),
+      signUpPassword: Yup.string().required(
+        "وارد کردن رمز عبور الزامی می باشد"
+      ),
       fullName: Yup.string().required(
         "وارد کردن نام و نام خانوادگی الزامی می باشد"
       ),
-      repeatPassword: Yup.string().oneOf(
-        [Yup.ref("password"), undefined],
-        "تکرار رمز عبور باید برابر با رمز عبور باشد"
-      ).required("تکرار رمز عبور الزامی می باشد"),
+      repeatPassword: Yup.string()
+        .oneOf(
+          [Yup.ref("signUpPassword"), undefined],
+          "تکرار رمز عبور باید برابر با رمز عبور باشد"
+        )
+        .required("تکرار رمز عبور الزامی می باشد"),
     }),
     onSubmit: (values) => {
-      signInwithGoogleEmailAndPassword(values.email, values.password)
+      createAuthUserWithEmailAndPassword(
+        values.signUpEmail,
+        values.signUpPassword
+      )
         .then((response) => {
-          console.log(response);
+          if (response) {
+            const createUser = createUserDocumentFromAuth(response.user, {
+              displayName: values.fullName,
+            });
+            console.log(createUser);
+          }
         })
-        .then((error) => {
-          console.log(error);
+        .catch((error) => {
+          if (error.code === "auth/email-already-in-use") {
+            toast("ایمیل شما از قبل ثبت شده است");
+          } else {
+            console.error(error);
+          }
         });
     },
   });
@@ -128,14 +185,14 @@ export default function User() {
                   </label>
                   <div>
                     <input
-                      {...signUpFormFormik.getFieldProps("email")}
-                      id="email"
+                      id="signUpEmail"
                       type="email"
                       className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       placeholder="ایمیل خود را وارد کنید"
+                      {...signUpFormFormik.getFieldProps("signUpEmail")}
                     />
                     <div className="text-red-500 text-sm pt-2 font-bold">
-                      {signUpFormFormik.errors.email}
+                      {signUpFormFormik.errors.signUpEmail}
                     </div>
                   </div>
                 </div>
@@ -145,11 +202,11 @@ export default function User() {
                   </label>
                   <div>
                     <input
-                      {...signUpFormFormik.getFieldProps("fullName")}
                       id="fullName"
                       type="fullName"
                       className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       placeholder="ایمیل خود را وارد کنید"
+                      {...signUpFormFormik.getFieldProps("fullName")}
                     />
                     <div className="text-red-500 text-sm pt-2 font-bold">
                       {signUpFormFormik.errors.fullName}
@@ -162,16 +219,16 @@ export default function User() {
                   </label>
                   <div>
                     <input
-                      {...signUpFormFormik.getFieldProps("password")}
                       autoComplete="yes"
-                      id="password"
+                      id="signUpPassword"
                       type="password"
                       className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       placeholder="رمز عبور خود را وارد کنید"
+                      {...signUpFormFormik.getFieldProps("signUpPassword")}
                     />
                   </div>
                   <div className="text-red-500 text-sm pt-2 font-bold">
-                    {signUpFormFormik.errors.password}
+                    {signUpFormFormik.errors.signUpPassword}
                   </div>
                 </div>
                 <div className="mb-6">
@@ -180,12 +237,12 @@ export default function User() {
                   </label>
                   <div>
                     <input
-                      {...signUpFormFormik.getFieldProps("repeatPassword")}
                       autoComplete="yes"
                       id="repeatPassword"
                       type="password"
                       className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       placeholder="رمز عبور خود را وارد کنید"
+                      {...signUpFormFormik.getFieldProps("repeatPassword")}
                     />
                   </div>
                   <div className="text-red-500 text-sm pt-2 font-bold">
@@ -210,14 +267,20 @@ export default function User() {
               <div className="flex justify-center mt-2">
                 <button
                   onClick={userGoogleLogin}
+                  disabled={googleLoginLoading}
                   className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2 w-[150px]"
                 >
-                  <i className="fab fa-google"></i>
+                  {googleLoginLoading ? (
+                    <ButtonSpinner spinnerSize="h-5 w-5" />
+                  ) : (
+                    <i className="fab fa-google"></i>
+                  )}
                 </button>
               </div>
             </div>
           </div>
         </div>
+        <Toaster />
       </section>
     </PageLayout>
   );
