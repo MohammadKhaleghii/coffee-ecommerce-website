@@ -20,6 +20,8 @@ export default function User() {
   const dispatch = useDispatch();
   const userSlice = useSelector((state: any) => state.user);
   const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
+  const [signInLoading, setSigInLoading] = useState(false);
+  const [signUpLoading, setSigUpLoading] = useState(false);
 
   const handleCurrentUser = (
     displayName: string | null,
@@ -67,11 +69,13 @@ export default function User() {
       password: Yup.string().required("رمز عبور الزامی می باشد"),
     }),
     onSubmit: (values) => {
+      setSigInLoading(true);
       signInwithGoogleEmailAndPassword(values.email, values.password)
         .then((response) => {
           if (response) {
             handleCurrentUser(response.user.displayName, response.user.email);
             signInFormFormik.resetForm();
+            setSigInLoading(false);
           }
         })
         .catch((error) => {
@@ -88,6 +92,7 @@ export default function User() {
             default:
               console.error(error);
           }
+          setSigInLoading(false);
         });
     },
   });
@@ -117,6 +122,7 @@ export default function User() {
         .required("تکرار رمز عبور الزامی می باشد"),
     }),
     onSubmit: (values) => {
+      setSigUpLoading(true);
       createAuthUserWithEmailAndPassword(
         values.signUpEmail,
         values.signUpPassword
@@ -129,6 +135,7 @@ export default function User() {
             if (response)
               handleCurrentUser(response.user.displayName, response.user.email);
             signUpFormFormik.resetForm();
+            setSigUpLoading(false);
           }
         })
         .catch((error) => {
@@ -145,9 +152,13 @@ export default function User() {
             case "auth/email-already-in-use":
               toast.error("این ایمیل از قبل وجود دارد");
               break;
+            case "auth/weak-password":
+              toast.error("لطفا یک رمزعبور قوی تر وارد کنید");
+              break;
             default:
               console.error(error);
           }
+          setSigUpLoading(false);
         });
     },
   });
@@ -224,9 +235,13 @@ export default function User() {
                   <div className="flex items-center justify-center">
                     <button
                       type="submit"
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                      className="bg-gradient-to-r bg-[#F9C06A] font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                     >
-                      ورود
+                      {signInLoading ? (
+                        <ButtonSpinner spinnerSize="h-5 w-5" />
+                      ) : (
+                        "ورود"
+                      )}
                     </button>
                   </div>
                 </form>
@@ -253,7 +268,7 @@ export default function User() {
                   </div>
                   <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                      <i className="fas fa-envelope ml-2"></i>نام و نام خانوادگی
+                      <i className="fas fa-user ml-2"></i>نام و نام خانوادگی
                     </label>
                     <div>
                       <input
@@ -314,9 +329,13 @@ export default function User() {
                   <div className="flex items-center justify-center">
                     <button
                       type="submit"
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                      className="bg-gradient-to-r bg-[#F9C06A] font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                     >
-                      ثبت نام
+                      {signUpLoading ? (
+                        <ButtonSpinner spinnerSize="h-5 w-5" />
+                      ) : (
+                        "ثبت نام"
+                      )}
                     </button>
                   </div>
                 </form>
