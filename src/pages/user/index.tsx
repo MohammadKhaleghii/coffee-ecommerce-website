@@ -20,7 +20,7 @@ export default function User() {
   const dispatch = useDispatch();
   const userSlice = useSelector((state: any) => state.user);
   const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
-  
+
   const handleCurrentUser = (
     displayName: string | null,
     email: string | null
@@ -132,10 +132,21 @@ export default function User() {
           }
         })
         .catch((error) => {
-          if (error.code === "auth/email-already-in-use") {
-            toast.error("ایمیل شما از قبل ثبت شده است");
-          } else {
-            console.error(error);
+          switch (error.code) {
+            case "auth/invalid-login-credentials":
+              toast.error("لطفا مقادیر ورودی خود را بررسی کنید");
+              break;
+            case "auth/user-not-found":
+              toast.error("آدرس ایمیل شما یافت نشد");
+              break;
+            case "auth/network-request-failed":
+              toast.error("لطفا قند شکن خود را وصل کنید");
+              break;
+            case "auth/email-already-in-use":
+              toast.error("این ایمیل از قبل وجود دارد");
+              break;
+            default:
+              console.error(error);
           }
         });
     },
