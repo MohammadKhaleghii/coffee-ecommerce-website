@@ -26,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
             {thousandSeparator(props.ProductDetails.productPrice)} تومان
           </p>
         </div>
-        <ProductCartButton/>
+        <ProductCartButton product={props.ProductDetails}/>
       </div>
     </>
   );
