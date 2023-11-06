@@ -5,10 +5,7 @@ import { getShopProductsCollectionAndDocument } from "../../services/firestore-c
 import PageLayout from "./../../layout/public-page";
 import { Suspense, lazy, useState, useEffect, useTransition } from "react";
 import toast, { Toaster } from "react-hot-toast";
-const ProductCartSkeleton = lazy(
-  () => import("../../skeleton/product-cart")
-);
-
+import ProductCartSkeleton from "../../skeleton/product-cart";
 export default function Shop() {
   const [productList, setProductList] = useState<ProductDetails[]>();
   useEffect(() => {
