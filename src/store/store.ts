@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 import { userSlice } from "./reducre/user/user.reducer";
 
 const rootReducer = combineReducers({
-  [cartSlice.name]: cartSlice,
+  [cartSlice.name]: cartSlice.reducer,
   [userSlice.name]: userSlice.reducer,
 });
 export const store = configureStore({
