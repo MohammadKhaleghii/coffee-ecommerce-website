@@ -12,24 +12,48 @@ const cartSlice = createSlice({
         (item) => item.productID === action.payload.productID
       );
       if (findProduct) {
-        const increaseQTY = {
-          ...action.payload,
-          productQTY: action.payload.productQTY + 1,
-        };
-        return state.map((product) => {
-          return findProduct.productID === action.payload.productID
+        return state.map((product) =>
+          findProduct.productID === action.payload.productID
             ? {
                 ...product,
                 productQTY: product.productQTY + 1,
               }
-            : product;
-        });
+            : product
+        );
       } else {
         state.push({ ...action.payload, productQTY: 1 });
       }
     },
-    decreaseItemInTocart: (state, action) => {},
-    removeFromCart: (state, action) => {},
+    decreaseItemInTocart: (state, action) => {
+      const findProduct = state.find(
+        (item) => item.productID === action.payload.productID
+      );
+      if (findProduct && findProduct.productQTY > 1) {
+        return state.map((product) => {
+          if (findProduct.productID === action.payload.productID) {
+            debugger
+            return {
+              ...product,
+              productQTY: product.productQTY - 1,
+            };
+          } else {
+            return product;
+          }
+        });
+      } else {
+        return state.filter(
+          (product) => product.productID !== findProduct?.productID
+        );
+      }
+    },
+    removeFromCart: (state, action) => {
+      const findProduct = state.find(
+        (item) => item.productID === action.payload.productID
+      );
+      return state.filter(
+        (product) => product.productID !== findProduct?.productID
+      );
+    },
   },
 });
 
