@@ -6,8 +6,20 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { getDoc, setDoc, getFirestore, doc } from "firebase/firestore";
+import {
+  getDoc,
+  setDoc,
+  getFirestore,
+  doc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from "firebase/firestore";
 import toast from "react-hot-toast";
+import { CreateProductsOutput } from "./dto/products-output";
+import { ProductDetails } from "../component/product-card/product-card.interface";
+import { SliderInput } from "./dto/slider-input";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBySnltyI6tChuFktBkvFPPrn--TqK2sjw",
@@ -92,4 +104,65 @@ export const createAuthUserWithEmailAndPassword = async (
 ) => {
   if (!email || !password) return;
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const addCollecionAndDocment = async (
+  collectionKey: string,
+  objectsToAdd: any[]
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+  objectsToAdd.map((item) => {
+    const docRef = doc(collectionRef, item.title.toLocaleLowerCase());
+    batch.set(docRef, item);
+  });
+  await batch.commit();
+};
+
+export const getShopProductsCollectionAndDocument = async (
+  collectionKey: string
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const q = query(collectionRef);
+  const querySnapShot = await getDocs(q);
+  const productsMap = querySnapShot.docs.map((item) =>
+    item.data()
+  ) as ProductDetails[];
+  return productsMap;
+};
+
+export const getSlidersCollectionAndDocument = async (
+  collectionKey: string
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const q = query(collectionRef);
+  const querySnapShot = await getDocs(q);
+  const slidersMap = querySnapShot.docs.map((item) =>
+    item.data()
+  ) as SliderInput[];
+  return slidersMap;
+};
+
+export const getSpecialProductsCollectionAndDocument = async (
+  collectionKey: string
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const q = query(collectionRef);
+  const querySnapShot = await getDocs(q);
+  const productsMap = querySnapShot.docs.map((item) =>
+    item.data()
+  ) as ProductDetails[];
+  return productsMap;
+};
+
+export const getTopProductsCollectionAndDocument = async (
+  collectionKey: string
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const q = query(collectionRef);
+  const querySnapShot = await getDocs(q);
+  const productsMap = querySnapShot.docs.map((item) =>
+    item.data()
+  ) as ProductDetails[];
+  return productsMap;
 };
