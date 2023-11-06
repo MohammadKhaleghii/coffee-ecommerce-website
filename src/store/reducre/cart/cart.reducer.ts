@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CartItemProps } from "../../../component/cart-item/cart-item.interface";
+import { Cart } from "./cart.typess";
 
-const initialState: CartItemProps[] = [];
+const initialState: Cart[] = [];
 
 const cartSlice = createSlice({
   name: "cart",
