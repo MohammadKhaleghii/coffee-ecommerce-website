@@ -1,109 +1,77 @@
+import { ProductDetails } from "../../component/product-card/product-card.interface";
 import CategoryList from "../../container/category-list/category-list";
-import ProductCartSkeleton from "../../container/skeleton/product-cart";
+import ProductCartSkeleton from "../../skeleton/product-cart";
+import SliderSkeleton from "../../skeleton/slider";
 import Slider from "../../container/slider/slider";
+import { SliderInput } from "../../services/dto/slider-input";
+import {
+  addCollecionAndDocment,
+  getCategoriesCollectionAndDocument,
+  getSlidersCollectionAndDocument,
+  getSpecialProductsCollectionAndDocument,
+  getTopProductsCollectionAndDocument,
+} from "../../services/firestore-config";
 import PageLayout from "./../../layout/public-page";
-import { Suspense, lazy } from "react";
+import { lazy, useEffect, useState } from "react";
+import CategoryItemSkeleton from "../../skeleton/category-item";
+import { CategoryItemInput } from "../../services/dto/category-item-input";
+
 const ProductContainer = lazy(
   () => import("../../container/product-container/product-container")
 );
 
 export default function Home() {
-  const categoryList = [
-    {
-      id: 1,
-      categoryTitle: "عنوان تستی",
-      categoryImage: "/assetes/image/home-assetes/1.png",
-    },
-    {
-      id: 2,
-      categoryTitle: "عنوان تستی",
-      categoryImage: "/assetes/image/home-assetes/1.png",
-    },
-    {
-      id: 3,
-      categoryTitle: "عنوان تستی",
-      categoryImage: "/assetes/image/home-assetes/1.png",
-    },
-    {
-      id: 4,
-      categoryTitle: "عنوان تستی",
-      categoryImage: "/assetes/image/home-assetes/1.png",
-    },
-    {
-      id: 5,
-      categoryTitle: "عنوان تستی",
-      categoryImage: "/assetes/image/home-assetes/1.png",
-    },
-  ];
+  const [sliders, setSliders] = useState<SliderInput[]>();
+  const [topProducts, setTopProducts] = useState<ProductDetails[]>();
+  const [specialProducts, setSpecialProducts] = useState<ProductDetails[]>();
+  const [categoryList, setCategoryList] = useState<CategoryItemInput[]>();
 
-  const productList = [
-    {
-      id: 1,
-      productTitle: "قهوه",
-      productImage: "/assetes/image/home-assetes/2.jpg",
-      productPrice: 59900,
-      productCombination: {
-        item1: "نوع A",
-        item2: "نوع B",
-      },
-    },
-    {
-      id: 2,
-      productTitle: "کاپوچینو",
-      productImage: "/assetes/image/home-assetes/2.jpg",
-      productPrice: 60000,
-      productCombination: {
-        item1: "شیرین",
-        item2: "تلخ",
-      },
-    },
-    {
-      id: 3,
-      productTitle: "لاته",
-      productImage: "/assetes/image/home-assetes/2.jpg",
-      productPrice: 72000,
-      productCombination: {
-        item1: "بزرگ",
-        item2: "کوچک",
-      },
-    },
-    {
-      id: 4,
-      productTitle: "اسپرسو",
-      productImage: "/assetes/image/home-assetes/2.jpg",
-      productPrice: 420010,
-      productCombination: {
-        item1: "قوی",
-        item2: "ملایم",
-      },
-    },
-  ];
+  useEffect(() => {
+    // get Sliders
 
-  const sliderItem = [
-    {
-      sliderPath: "/assetes/image/home-assetes/4.webp",
-      sliderHref: "",
-    },
-    {
-      sliderPath: "/assetes/image/home-assetes/5.webp",
-      sliderHref: "",
-    },
-  ];
+    getSlidersCollectionAndDocument("sliders").then((response) => {
+      setSliders(response);
+    });
+
+    // get Top products
+    getTopProductsCollectionAndDocument("topSaleProducts").then((response) =>
+      setTopProducts(response)
+    );
+    // get Special Products
+    getSpecialProductsCollectionAndDocument("specialProducts").then(
+      (response) => setSpecialProducts(response)
+    );
+
+    // get all categories
+    getCategoriesCollectionAndDocument("categories").then((response) =>
+      setCategoryList(response)
+    );
+  }, []);
+
   return (
     <PageLayout>
       <section className="pt-5  ">
-        <Slider slider={sliderItem} />
+        {!sliders ? <SliderSkeleton /> : <Slider slider={sliders} />}
       </section>
       <section>
-        <CategoryList title={"دسته بندی محصولات"} categoryList={categoryList} />
+        {!categoryList ? (
+          <CategoryItemSkeleton />
+        ) : (
+          <CategoryList
+            title={"دسته بندی محصولات"}
+            categoryList={categoryList}
+          />
+        )}
       </section>
       <section className="pt-8 pb-5">
-        <Suspense fallback={<ProductCartSkeleton />}>
+        {!specialProducts ? (
+          <ProductCartSkeleton />
+        ) : (
           <ProductContainer
-            productList={productList}
+            productList={specialProducts}
             title={"پرفروش ترین‌ها"}
           />
-        </Suspense>
+        )}
       </section>
       <section className="pt-10 pb-10 w-full h-auto lg:px-[130px] px-5">
         <img
@@ -113,9 +81,11 @@ export default function Home() {
         />
       </section>
       <section className=" pb-10">
-        <Suspense fallback={<ProductCartSkeleton />}>
-          <ProductContainer productList={productList} title={""} />
-        </Suspense>
+        {!topProducts ? (
+          <ProductCartSkeleton />
+        ) : (
+          <ProductContainer productList={topProducts} title={""} />
+        )}
       </section>
     </PageLayout>
   );
