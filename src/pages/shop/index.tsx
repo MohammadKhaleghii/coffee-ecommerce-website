@@ -6,7 +6,7 @@ import PageLayout from "./../../layout/public-page";
 import { Suspense, lazy, useState, useEffect, useTransition } from "react";
 import toast, { Toaster } from "react-hot-toast";
 const ProductCartSkeleton = lazy(
-  () => import("../../container/skeleton/product-cart")
+  () => import("../../skeleton/product-cart")
 );
 
 export default function Shop() {
