@@ -12,7 +12,8 @@ const CategoryList: React.FC<CategoryListProps> = (
       <div className="grid lg:grid-cols-5  grid-cols-2 gap-y-5 gap-x-5 flex-row ">
         {props.categoryList.map((categoryItem, index) => (
           <CategoryItem
-            key={index}
+            key={categoryItem.id}
+            id={categoryItem.id}
             categoryImage={categoryItem.categoryImage}
             categoryTitle={categoryItem.categoryTitle}
           />
