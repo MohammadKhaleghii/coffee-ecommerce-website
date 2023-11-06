@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CategoryItem from "../../component/category-item/category-item";
 import { CategoryListProps } from "./category-list.interface";
 
@@ -11,12 +12,14 @@ const CategoryList: React.FC<CategoryListProps> = (
       </h3>
       <div className="grid lg:grid-cols-5  grid-cols-2 gap-y-5 gap-x-5 flex-row ">
         {props.categoryList.map((categoryItem, index) => (
-          <CategoryItem
-            key={categoryItem.id}
-            id={categoryItem.id}
-            categoryImage={categoryItem.categoryImage}
-            categoryTitle={categoryItem.categoryTitle}
-          />
+          <Link to={"/shop"}>
+            <CategoryItem
+              key={categoryItem.id}
+              id={categoryItem.id}
+              categoryImage={categoryItem.categoryImage}
+              categoryTitle={categoryItem.categoryTitle}
+            />
+          </Link>
         ))}
       </div>
     </div>
