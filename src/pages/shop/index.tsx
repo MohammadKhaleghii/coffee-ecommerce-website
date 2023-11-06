@@ -11,14 +11,10 @@ const ProductCartSkeleton = lazy(
 
 export default function Shop() {
   const [productList, setProductList] = useState<ProductDetails[]>();
-  const [isPending, startTransition] = useTransition();
-  console.log(isPending);
   useEffect(() => {
     getShopProductsCollectionAndDocument("products")
       .then((response) => {
-        startTransition(() => {
           setProductList(response);
-        });
       })
       .catch((error) => {
         console.error(error);
