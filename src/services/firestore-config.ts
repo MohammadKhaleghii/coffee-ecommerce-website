@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 import { CreateProductsOutput } from "./dto/products-output";
 import { ProductDetails } from "../component/product-card/product-card.interface";
 import { SliderInput } from "./dto/slider-input";
+import { CategoryItemInput } from "./dto/category-item-input";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBySnltyI6tChuFktBkvFPPrn--TqK2sjw",
@@ -164,5 +165,17 @@ export const getTopProductsCollectionAndDocument = async (
   const productsMap = querySnapShot.docs.map((item) =>
     item.data()
   ) as ProductDetails[];
+  return productsMap;
+};
+
+export const getCategoriesCollectionAndDocument = async (
+  collectionKey: string
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const q = query(collectionRef);
+  const querySnapShot = await getDocs(q);
+  const productsMap = querySnapShot.docs.map((item) =>
+    item.data()
+  ) as CategoryItemInput[];
   return productsMap;
 };
