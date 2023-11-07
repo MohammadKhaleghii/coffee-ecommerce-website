@@ -78,6 +78,7 @@ export default function Home() {
         <Suspense fallback={<BannerSkeleton />}>
           <Link to={"/shop"}>
             <img
+              loading="lazy"
               src="https://firebasestorage.googleapis.com/v0/b/coffe-web-bc1c8.appspot.com/o/1110.png?alt=media&token=0cdfe04b-265f-401d-b7a6-98af8bfa6a17&_gl=1*czn4uw*_ga*MTU2NDYwNTAzLjE2OTY4NjUwMzY.*_ga_CW55HF8NVT*MTY5OTI1Mzg2MS4yMC4xLjE2OTkyNTcwNjMuNTYuMC4w"
               className="w-full h-auto"
               alt=""

@@ -8,6 +8,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       <div className="bg-[#F9C06A4A]   border border-[#F9C06A] rounded-md flex flex-col">
         <div className="opacity-100 rounded-md">
           <img
+            loading="lazy"
             src={props.ProductDetails.imagePath}
             className="h-[222px] w-full opacity-100 rounded-md"
             alt=""
@@ -26,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
             {thousandSeparator(props.ProductDetails.productPrice)} تومان
           </p>
         </div>
-        <ProductCartButton product={props.ProductDetails}/>
+        <ProductCartButton product={props.ProductDetails} />
       </div>
     </>
   );

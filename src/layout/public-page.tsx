@@ -112,7 +112,7 @@ export default function PageLayout({
         <nav>
           <div className="flex items-center justify-start">
             <Link to={"/"}>
-              <img src={logoPath} alt="" className="pl-14" />
+              <img loading="lazy" src={logoPath} alt="" className="pl-14" />
             </Link>
             <ul className="flex items-center gap-x-10">
               {navigationItem.map((navItem, index) => (
@@ -143,7 +143,7 @@ export default function PageLayout({
       <main>{children}</main>
       <footer className=" lg:px-32 flex flex-col justify-between bg-[#3F2F2A] rounded-t-md pt-20 gap-x-12">
         <section className="text-primary-10">
-          <img src={logoPath} />
+          <img loading="lazy" src={logoPath} />
           <div className="flex justify-center ">
             <div className="grid grid-cols-3 gap-x-12 w-[70%]">
               <div className="text-sm gap-y-3 flex-col flex pt-8">
@@ -189,6 +189,7 @@ export default function PageLayout({
             </div>
             <div className="flex flex-col gap-y-5 items-center justify-start">
               <img
+                loading="lazy"
                 className="w-[122px] h-[122px]"
                 src="/assetes/image/footer-images/2.png"
                 alt=""
@@ -199,7 +200,7 @@ export default function PageLayout({
                     key={index}
                     className="rounded-xl bg-white h-auto px-3 py-3"
                   >
-                    <img src={item.imagePath} alt="" />
+                    <img loading="lazy" src={item.imagePath} alt="" />
                   </div>
                 ))}
               </div>

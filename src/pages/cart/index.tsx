@@ -51,7 +51,11 @@ export default function Cart() {
           </>
         ) : (
           <div className="flex items-center justify-center flex-col">
-            <img src="assetes/image/cart-assetes/empty-cart.webp" alt="" />
+            <img
+              loading="lazy"
+              src="assetes/image/cart-assetes/empty-cart.webp"
+              alt=""
+            />
             <h2 className="lg:pt-5 lg:pb-5 pt-2 text-3xl font-bold">
               سبد خرید شما خالی می باشد
             </h2>

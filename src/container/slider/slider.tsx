@@ -17,9 +17,14 @@ const Slider: React.FC<SliderProps> = (props: SliderProps) => {
         }}
         className="mySwiper"
       >
-        {props.slider.map((item , index) => (
+        {props.slider.map((item, index) => (
           <SwiperSlide key={index}>
-            <img src={item.sliderPath} className="w-full rounded-3xl" alt="" />
+            <img
+              loading="lazy"
+              src={item.sliderPath}
+              className="w-full rounded-3xl"
+              alt=""
+            />
           </SwiperSlide>
         ))}
       </Swiper>
