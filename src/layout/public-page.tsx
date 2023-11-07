@@ -164,11 +164,11 @@ export default function PageLayout({
         </>
       )}
       <main>{children}</main>
-      <footer className=" lg:px-32 flex flex-col justify-between bg-[#3F2F2A] rounded-t-md pt-20 gap-x-12">
-        <section className="text-primary-10">
+      <footer className="px-3 lg:px-32 flex flex-col justify-between bg-[#3F2F2A] rounded-t-md lg:pt-2 pt-4 gap-x-12">
+        <section className="text-primary-10 ">
           <img loading="lazy" src={logoPath} />
-          <div className="flex justify-center ">
-            <div className="grid grid-cols-3 gap-x-12 w-[70%]">
+          <div className="flex justify-center lg:flex-row flex-col ">
+            <div className="grid md:grid-cols-3 grid-cols-2 gap-y-4  gap-x-12 lg:w-[70%]">
               <div className="text-sm gap-y-3 flex-col flex pt-8">
                 <div className="flex flex-col gap-y-4">
                   <p> شنبه تا پنج شنبه: 10 صبح تا 17 بعد از ظهر</p>
@@ -230,8 +230,8 @@ export default function PageLayout({
             </div>
           </div>
         </section>
-        <section className="pb-8">
-          <p className="text-primary-10 text-sm leading-8 font-normal">
+        <section className="pb-8 lg:pt-2 pt-4">
+          <p className="text-primary-10 text-sm leading-8 font-normal text-justify">
             کافینا گسترده ترین فروش قهوه و چای تخصصی در سراسر جهان. از دانه‌های
             اسپرسوی طعم‌دار، ما انواعی از محصولات را ارائه می‌دهیم تا کام هر
             مشتری را وسوسه کند. برای کسانی که به دنبال تجهیزات منحصر به فرد دم
