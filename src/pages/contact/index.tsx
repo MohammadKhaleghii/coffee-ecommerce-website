@@ -19,7 +19,7 @@ export default function Contact() {
     }),
     onSubmit: (values) => {
       console.log(values);
-      toast("فرم شما با موفیت ثبت شد");
+      toast.success("فرم شما با موفیت ثبت شد");
       resetForm();
     },
   });
