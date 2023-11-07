@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <PageLayout>
-      <section className="pt-5  ">
+      <section className="pt-5 lg:px-[130px] px-5">
         {!sliders ? <SliderSkeleton /> : <Slider slider={sliders} />}
       </section>
       <section>
