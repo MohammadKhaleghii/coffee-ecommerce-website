@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Cart } from "./cart.types";
+import { CartSliceTypes } from "./cart.types";
 import toast from "react-hot-toast";
 
-const initialState: Cart[] = [];
+const initialState: CartSliceTypes[] = [];
 
 const cartSlice = createSlice({
   name: "cart",

@@ -1,4 +1,4 @@
-export interface Cart {
+export interface CartSliceTypes {
   imagePath: string;
   productTitle: string;
   productBrand: string;
