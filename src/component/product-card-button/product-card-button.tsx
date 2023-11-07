@@ -18,7 +18,6 @@ const ProductCartButton: React.FC<ProductCardButtonProps> = (
       >
         افزودن به سبد خرید
       </button>
-      <Toaster />
     </div>
   );
 };

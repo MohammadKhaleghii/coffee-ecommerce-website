@@ -10,7 +10,6 @@ export default function Cart() {
   return (
     <PageLayout>
       <section className="px-2 pb-10">
-        <Toaster />
         {selectCart.length ? (
           <>
             <div className="container mx-auto mt-10">

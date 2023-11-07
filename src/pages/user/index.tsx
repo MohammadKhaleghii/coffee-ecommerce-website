@@ -361,7 +361,6 @@ export default function User() {
             </div>
           )}
         </div>
-        <Toaster />
       </section>
     </PageLayout>
   );

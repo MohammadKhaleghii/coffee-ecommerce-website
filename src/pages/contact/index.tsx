@@ -88,7 +88,6 @@ export default function Contact() {
                   ارسال
                 </button>
               </div>
-              <Toaster />
             </form>
           </div>
         </section>

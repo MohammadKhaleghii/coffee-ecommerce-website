@@ -27,7 +27,6 @@ export default function Shop() {
         ) : (
           <ProductContainer productList={productList} title={""} />
         )}
-        <Toaster />
       </section>
     </PageLayout>
   );
