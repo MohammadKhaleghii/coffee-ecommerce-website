@@ -181,11 +181,11 @@ export default function User() {
               </button>
             </div>
           ) : (
-            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8  w-full ">
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full ">
               <h2 className="text-3xl font-bold mb-6 text-center text-white">
                 <span className="text-black ">ورود / ثبت نام</span>
               </h2>
-              <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-20 px-[130px]">
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-20 px-3 lg:px-[130px] gap-y-5">
                 <form
                   className="col-span-"
                   onSubmit={signInFormFormik.handleSubmit}
