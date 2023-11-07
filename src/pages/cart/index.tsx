@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import CartItem from "../../component/cart-item/cart-item";
 import PageLayout from "./../../layout/public-page";
 import { CartItemProps } from "../../component/cart-item/cart-item.interface";
+import { Toaster } from 'react-hot-toast';
 
 export default function Cart() {
   const selectCart: CartItemProps[] = useSelector((state: any) => state.cart);
@@ -9,6 +10,7 @@ export default function Cart() {
   return (
     <PageLayout>
       <section className="px-2 pb-10">
+        <Toaster />
         {selectCart.length ? (
           <>
             <div className="container mx-auto mt-10">
