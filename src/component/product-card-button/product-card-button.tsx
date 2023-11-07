@@ -1,6 +1,7 @@
 import { addToCart } from "../../store/reducre/cart/cart.reducer";
 import { ProductCardButtonProps } from "./product-card-button.interface";
 import { useDispatch } from "react-redux";
+import { Toaster } from "react-hot-toast";
 
 const ProductCartButton: React.FC<ProductCardButtonProps> = (
   props: ProductCardButtonProps
@@ -17,6 +18,7 @@ const ProductCartButton: React.FC<ProductCardButtonProps> = (
       >
         افزودن به سبد خرید
       </button>
+      <Toaster />
     </div>
   );
 };
