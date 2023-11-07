@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Cart } from "./cart.types";
+import toast from "react-hot-toast";
 
 const initialState: Cart[] = [];
 
@@ -12,7 +13,7 @@ const cartSlice = createSlice({
         (item) => item.productID === action.payload.productID
       );
       if (findProduct) {
-        return state.map((product) =>
+        const newState = state.map((product) =>
           findProduct.productID === action.payload.productID
             ? {
                 ...product,
@@ -20,8 +21,15 @@ const cartSlice = createSlice({
               }
             : product
         );
+        toast.success(
+          `محصول ${action.payload.productTitle} با موفقیت به سبد خرید شما اضافه شد`
+        );
+        return newState;
       } else {
         state.push({ ...action.payload, productQTY: 1 });
+        toast.success(
+          `محصول ${action.payload.productTitle} با موفقیت به سبد خرید شما اضافه شد`
+        );
       }
     },
     decreaseItemInTocart: (state, action) => {
@@ -31,7 +39,7 @@ const cartSlice = createSlice({
       if (findProduct && findProduct.productQTY > 1) {
         return state.map((product) => {
           if (findProduct.productID === action.payload.productID) {
-            debugger
+            debugger;
             return {
               ...product,
               productQTY: product.productQTY - 1,
@@ -50,9 +58,14 @@ const cartSlice = createSlice({
       const findProduct = state.find(
         (item) => item.productID === action.payload.productID
       );
-      return state.filter(
+
+      const newState = state.filter(
         (product) => product.productID !== findProduct?.productID
       );
+      toast.error(
+        `محصول ${action.payload.productTitle} با موفقیت به سبد خرید شما حذف شد`
+      );
+      return newState;
     },
   },
 });
