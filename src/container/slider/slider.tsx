@@ -20,7 +20,6 @@ const Slider: React.FC<SliderProps> = (props: SliderProps) => {
         {props.slider.map((item, index) => (
           <SwiperSlide key={index}>
             <img
-              loading="lazy"
               src={item.sliderPath}
               className="w-full rounded-3xl"
               alt=""
