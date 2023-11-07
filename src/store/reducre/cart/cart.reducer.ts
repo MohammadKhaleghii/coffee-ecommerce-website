@@ -8,13 +8,13 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state, action) => {
-      const findProduct = state.find(
+    addToCart: (cartState, action) => {
+      const findProduct = cartState.find(
         (item) => item.productID === action.payload.productID
       );
       if (findProduct) {
-        const newState = state.map((product) =>
-          findProduct.productID === action.payload.productID
+        const newState = cartState.map((product) =>
+          product.productID === action.payload.productID
             ? {
                 ...product,
                 productQTY: product.productQTY + 1,
@@ -26,40 +26,43 @@ const cartSlice = createSlice({
         );
         return newState;
       } else {
-        state.push({ ...action.payload, productQTY: 1 });
+        cartState.push({ ...action.payload, productQTY: 1 });
         toast.success(
           `محصول ${action.payload.productTitle} با موفقیت به سبد خرید شما اضافه شد`
         );
       }
     },
-    decreaseItemInTocart: (state, action) => {
-      const findProduct = state.find(
+    decreaseItemInTocart: (cartState, action) => {
+      const findProduct = cartState.find(
         (item) => item.productID === action.payload.productID
       );
       if (findProduct && findProduct.productQTY > 1) {
-        return state.map((product) => {
-          if (findProduct.productID === action.payload.productID) {
-            debugger;
-            return {
-              ...product,
-              productQTY: product.productQTY - 1,
-            };
-          } else {
-            return product;
-          }
-        });
+        toast.error(
+          `تعداد محصول ${action.payload.productTitle} با موفقیت کاهش یافت`
+        );
+        return cartState.map((product) =>
+          product.productID === action.payload.productID
+            ? {
+                ...product,
+                productQTY: product.productQTY - 1,
+              }
+            : product
+        );
       } else {
-        return state.filter(
+        toast.error(
+          `محصول ${action.payload.productTitle} با موفقیت به سبد خرید شما حذف شد`
+        );
+        return cartState.filter(
           (product) => product.productID !== findProduct?.productID
         );
       }
     },
-    removeFromCart: (state, action) => {
-      const findProduct = state.find(
+    removeFromCart: (cartState, action) => {
+      const findProduct = cartState.find(
         (item) => item.productID === action.payload.productID
       );
 
-      const newState = state.filter(
+      const newState = cartState.filter(
         (product) => product.productID !== findProduct?.productID
       );
       toast.error(
