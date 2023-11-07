@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function PageLayout({
@@ -6,6 +6,7 @@ export default function PageLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const logoPath = "/assetes/image/logo.png";
   const navigationItem = [
     {
@@ -35,7 +36,6 @@ export default function PageLayout({
       iconClassName: "fa-regular fa-cart-shopping",
       href: "/cart",
     },
-   
   ];
   const contactInfo = [
     {
@@ -108,13 +108,13 @@ export default function PageLayout({
   ];
   return (
     <div className="max-w-screen-2xl min-w-[360px] my-0 mx-auto">
-      <header className="lg:px-32 flex items-center justify-between bg-[#3F2F2A] lg:h-20 rounded-md mt-8 ">
+      <header className="lg:px-32 px-3 flex items-center justify-between bg-[#3F2F2A] lg:h-20 lg:ounded-md lg:mt-8 ">
         <nav>
           <div className="flex items-center justify-start">
             <Link to={"/"}>
               <img loading="lazy" src={logoPath} alt="" className="pl-14" />
             </Link>
-            <ul className="flex items-center gap-x-10">
+            <ul className="md:flex items-center gap-x-10 hidden ">
               {navigationItem.map((navItem, index) => (
                 <Link key={index} to={navItem.href}>
                   <li className="text-primary-10 lg:text-base md:text-xs">
@@ -123,6 +123,12 @@ export default function PageLayout({
                 </Link>
               ))}
             </ul>
+            <div
+              className="px-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <i className="fa-solid fa-bars  md:hidden block text-primary-10 text-2xl"></i>
+            </div>
           </div>
         </nav>
         <div className="flex items-center justify-center">
@@ -140,6 +146,23 @@ export default function PageLayout({
           </ul>
         </div>
       </header>
+      {isMobileMenuOpen && (
+        <>
+          <div className="bg-[#3F2F2A]">
+            <div className="">
+              <ul className="flex items-center justify-center flex-col gap-y-5 py-1 ">
+                {navigationItem.map((navItem, index) => (
+                  <Link key={index} to={navItem.href}>
+                    <li className="text-primary-10 lg:text-base md:text-xs">
+                      {navItem.title}
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </>
+      )}
       <main>{children}</main>
       <footer className=" lg:px-32 flex flex-col justify-between bg-[#3F2F2A] rounded-t-md pt-20 gap-x-12">
         <section className="text-primary-10">
