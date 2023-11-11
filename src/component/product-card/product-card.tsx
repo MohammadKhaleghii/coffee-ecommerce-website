@@ -5,7 +5,7 @@ import { ProductCardProps } from "./product-card.interface";
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   return (
     <>
-      <div className="bg-[#F9C06A4A]   border border-[#F9C06A] rounded-md flex flex-col">
+      <div className="bg-[#F9C06A4A]   border border-[#F9C06A] rounded-md flex flex-col bg-white shadow-md hover:scale-105 hover:shadow-xl duration-500">
         <div className="opacity-100 rounded-md">
           <img
             loading="lazy"
