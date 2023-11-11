@@ -137,7 +137,7 @@ export default function PageLayout({
               <Link key={index} to={navItem.href}>
                 <i
                   key={index}
-                  className={`${navItem.iconClassName} text-primary-10 text-2xl`}
+                  className={`${navItem.iconClassName} text-primary-10 text-2xl hover:text-[#F9C06A]`}
                 >
                   {" "}
                 </i>
