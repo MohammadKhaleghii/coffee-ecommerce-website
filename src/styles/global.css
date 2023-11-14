@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url(component/button.css);
 body {
   font-family: IRANSansXFaNum;
   direction: rtl;

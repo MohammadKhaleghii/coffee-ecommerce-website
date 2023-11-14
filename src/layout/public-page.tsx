@@ -117,7 +117,7 @@ export default function PageLayout({
             <ul className="md:flex items-center gap-x-10 hidden ">
               {navigationItem.map((navItem, index) => (
                 <Link key={index} to={navItem.href}>
-                  <li className="text-primary-10 lg:text-base md:text-xs">
+                  <li className="text-primary-10 lg:text-base md:text-xs hover:border-b-2 pb-2  hove hover:text-[#F9C06A] hover:border-[#F9C06A]">
                     {navItem.title}
                   </li>
                 </Link>
@@ -137,7 +137,7 @@ export default function PageLayout({
               <Link key={index} to={navItem.href}>
                 <i
                   key={index}
-                  className={`${navItem.iconClassName} text-primary-10 text-2xl`}
+                  className={`${navItem.iconClassName} text-primary-10 text-2xl hover:text-[#F9C06A]`}
                 >
                   {" "}
                 </i>

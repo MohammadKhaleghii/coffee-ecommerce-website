@@ -15,7 +15,7 @@ const Slider: React.FC<SliderProps> = (props: SliderProps) => {
         pagination={{
           type: "progressbar",
         }}
-        className="mySwiper"
+        className="mySwiper min-h-[300px]"
       >
         {props.slider.map((item, index) => (
           <SwiperSlide key={index}>
