@@ -1,21 +1,21 @@
-import { ProductDetails } from "../../component/product-card/product-card.interface";
+import {ProductDetails} from "../../component/product-card/product-card.interface";
 import CategoryList from "../../container/category-list/category-list";
-import ProductCartSkeleton from "../../skeleton/product-cart";
-import SliderSkeleton from "../../skeleton/slider";
+import ProductCartSkeleton from "../../container/skeleton/product-cart";
+import SliderSkeleton from "../../container/skeleton/slider";
 import Slider from "../../container/slider/slider";
-import { SliderInput } from "../../services/dto/slider-input";
+import {SliderInput} from "../../services/dto/slider-input";
 import {
   getCategoriesCollectionAndDocument,
   getSlidersCollectionAndDocument,
   getSpecialProductsCollectionAndDocument,
   getTopProductsCollectionAndDocument,
 } from "../../services/firestore-config";
-import PageLayout from "./../../layout/public-page";
-import { lazy, useEffect, useState, Suspense } from "react";
-import CategoryItemSkeleton from "../../skeleton/category-item";
-import { CategoryItemInput } from "../../services/dto/category-item-input";
-import BannerSkeleton from "../../skeleton/banner";
-import { Link } from "react-router-dom";
+import PageLayout from "../../layout/public-page";
+import {lazy, useEffect, useState, Suspense} from "react";
+import CategoryItemSkeleton from "../../container/skeleton/category-item";
+import {CategoryItemInput} from "../../services/dto/category-item-input";
+import BannerSkeleton from "../../container/skeleton/banner";
+import {Link} from "react-router-dom";
 
 const ProductContainer = lazy(
   () => import("../../container/product-container/product-container")

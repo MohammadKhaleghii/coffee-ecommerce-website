@@ -1,21 +1,21 @@
-import { useFormik } from "formik";
+import {useFormik} from "formik";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
   signInWithGooglePopup,
   signInwithGoogleEmailAndPassword,
 } from "../../services/firestore-config";
-import PageLayout from "./../../layout/public-page";
+import PageLayout from "../../layout/public-page";
 import * as Yup from "yup";
-import toast, { Toaster } from "react-hot-toast";
-import { useState } from "react";
+import toast, {Toaster} from "react-hot-toast";
+import {useState} from "react";
 import ButtonSpinner from "../../component/buttons-spinner/button-spinner.component";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
   currentUser,
   removeCurrnetUser,
 } from "../../store/reducre/user/user.reducer";
-import { UserSliceTypes } from "../../store/reducre/user/user.types";
+import {UserSliceTypes} from "../../store/reducre/user/user.types";
 export default function User() {
   const dispatch = useDispatch();
   const userSlice = useSelector((state: any) => state.user);
@@ -37,7 +37,7 @@ export default function User() {
   const userGoogleLogin = async () => {
     setGoogleLoginLoading(true);
     try {
-      const { user } = await signInWithGooglePopup();
+      const {user} = await signInWithGooglePopup();
       await createUserDocumentFromAuth(user);
       setGoogleLoginLoading(false);
       handleCurrentUser(user.displayName, user.email);

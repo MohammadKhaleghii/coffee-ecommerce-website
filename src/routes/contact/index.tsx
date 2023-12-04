@@ -1,10 +1,10 @@
-import { useFormik } from "formik";
-import PageLayout from "./../../layout/public-page";
+import {useFormik} from "formik";
+import PageLayout from "../../layout/public-page";
 import * as Yup from "yup";
-import toast, { Toaster } from "react-hot-toast";
+import toast, {Toaster} from "react-hot-toast";
 
 export default function Contact() {
-  const { handleSubmit, resetForm, values, errors, getFieldProps } = useFormik({
+  const {handleSubmit, resetForm, values, errors, getFieldProps} = useFormik({
     initialValues: {
       email: "",
       subject: "",

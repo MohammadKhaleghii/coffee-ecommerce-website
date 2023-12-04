@@ -1,4 +1,4 @@
-import PageLayout from "./../../layout/public-page";
+import PageLayout from "../../layout/public-page";
 
 export default function Suppout() {
   return (

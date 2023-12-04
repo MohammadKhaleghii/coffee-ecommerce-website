@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { CartSliceTypes } from "./cart.types";
+import {createSlice} from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+import {CartSliceTypes} from "./cart.types";
 
 const initialState: CartSliceTypes[] = [];
 
@@ -21,16 +21,13 @@ const cartSlice = createSlice({
               }
             : product
         );
-        toast.success(
-          `محصول ${action.payload.productTitle} با موفقیت به سبد خرید شما اضافه شد`
-        );
         return newState;
       } else {
-        cartState.push({ ...action.payload, productQTY: 1 });
-        toast.success(
-          `محصول ${action.payload.productTitle} با موفقیت به سبد خرید شما اضافه شد`
-        );
+        cartState.push({...action.payload, productQTY: 1});
       }
+      toast.success(
+        `محصول ${action.payload.productTitle} با موفقیت به سبد خرید شما اضافه شد`
+      );
     },
     decreaseItemInTocart: (cartState, action) => {
       const findProduct = cartState.find(
@@ -74,5 +71,5 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice;
-export const { addToCart, decreaseItemInTocart, removeFromCart } =
+export const {addToCart, decreaseItemInTocart, removeFromCart} =
   cartSlice.actions;
