@@ -235,84 +235,58 @@ export default function User() {
                 </form>
 
                 <form onSubmit={signUpFormFormik.handleSubmit}>
-                  <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      <i className="fas fa-envelope ml-2"></i>ایمیل
-                    </label>
-                    <div>
-                      <input
-                        type="email"
-                        className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="ایمیل خود را وارد کنید"
-                        {...signUpFormFormik.getFieldProps("signUpEmail")}
-                      />
-                      {signUpFormFormik.touched.signUpEmail &&
-                      signUpFormFormik.errors.signUpEmail ? (
-                        <div className="text-red-500 text-sm pt-2 font-bold">
-                          {signUpFormFormik.errors.signUpEmail}
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      <i className="fas fa-user ml-2"></i>نام و نام خانوادگی
-                    </label>
-                    <div>
-                      <input
-                        type="text"
-                        className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="نام و نام خانوادگی خود را وارد کنید"
-                        {...signUpFormFormik.getFieldProps("fullName")}
-                      />
-                      {signUpFormFormik.touched.fullName &&
-                      signUpFormFormik.errors.fullName ? (
-                        <div className="text-red-500 text-sm pt-2 font-bold">
-                          {signUpFormFormik.errors.fullName}
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      <i className="fas fa-lock ml-2"></i>رمز عبور
-                    </label>
-                    <div>
-                      <input
-                        autoComplete="yes"
-                        type="password"
-                        className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="رمز عبور خود را وارد کنید"
-                        {...signUpFormFormik.getFieldProps("signUpPassword")}
-                      />
-                    </div>
-                    {signUpFormFormik.touched.signUpPassword &&
-                    signUpFormFormik.errors.signUpPassword ? (
-                      <div className="text-red-500 text-sm pt-2 font-bold">
-                        {signUpFormFormik.errors.signUpPassword}
-                      </div>
-                    ) : null}
-                  </div>
-                  <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      <i className="fas fa-lock ml-2"></i>تکرار رمز عبور
-                    </label>
-                    <div>
-                      <input
-                        autoComplete="yes"
-                        type="password"
-                        className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="تکرار رمز عبور خود را وارد کنید"
-                        {...signUpFormFormik.getFieldProps("repeatPassword")}
-                      />
-                    </div>
-                    {signUpFormFormik.touched.repeatPassword &&
-                    signUpFormFormik.errors.repeatPassword ? (
-                      <div className="text-red-500 text-sm pt-2 font-bold">
-                        {signUpFormFormik.errors.repeatPassword}
-                      </div>
-                    ) : null}
-                  </div>
+                  <FormInput
+                    {...signUpFormFormik.getFieldProps("signUpEmail")}
+                    type="email"
+                    label="ایمیل"
+                    placeholder="ایمیل خود را وارد کنید"
+                    errorMessage={
+                      signUpFormFormik.touched.signUpEmail &&
+                      signUpFormFormik.errors.signUpEmail
+                        ? signUpFormFormik.errors.signUpEmail
+                        : ""
+                    }
+                    iconClassNameAndStyle="fas fa-envelope ml-2"
+                  />
+                  <FormInput
+                    {...signUpFormFormik.getFieldProps("fullName")}
+                    type="text"
+                    label="نام و نام خانوادگی"
+                    placeholder="نام و نام خانوادگی خود را وارد کنید"
+                    errorMessage={
+                      signUpFormFormik.touched.fullName &&
+                      signUpFormFormik.errors.fullName
+                        ? signUpFormFormik.errors.fullName
+                        : ""
+                    }
+                    iconClassNameAndStyle="fas fa-user ml-2"
+                  />
+                  <FormInput
+                    {...signUpFormFormik.getFieldProps("signUpPassword")}
+                    type="text"
+                    label="رمز عبور"
+                    placeholder="رمز عبور خود را وارد کنید"
+                    errorMessage={
+                      signUpFormFormik.touched.signUpPassword &&
+                      signUpFormFormik.errors.signUpPassword
+                        ? signUpFormFormik.errors.signUpPassword
+                        : ""
+                    }
+                    iconClassNameAndStyle="fas fa-lock ml-2"
+                  />
+                  <FormInput
+                    {...signUpFormFormik.getFieldProps("repeatPassword")}
+                    type="text"
+                    label="تکرار رمز عبور "
+                    placeholder="تکرار رمز عبور خود را وارد کنید"
+                    errorMessage={
+                      signUpFormFormik.touched.repeatPassword &&
+                      signUpFormFormik.errors.repeatPassword
+                        ? signUpFormFormik.errors.repeatPassword
+                        : ""
+                    }
+                    iconClassNameAndStyle="fas fa-user ml-2"
+                  />
 
                   <div className="flex items-center justify-center">
                     <button
