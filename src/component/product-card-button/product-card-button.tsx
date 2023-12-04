@@ -1,7 +1,7 @@
-import { addToCart } from "../../store/reducre/cart/cart.reducer";
-import { ProductCardButtonProps } from "./product-card-button.interface";
-import { useDispatch } from "react-redux";
-import { Toaster } from "react-hot-toast";
+import {addToCart} from "../../store/reducre/cart/cart.reducer";
+import {ProductCardButtonProps} from "./product-card-button.interface";
+import {useDispatch} from "react-redux";
+import {Button} from "../../styles/component/buttons/button.styled.component";
 
 const ProductCartButton: React.FC<ProductCardButtonProps> = (
   props: ProductCardButtonProps
@@ -12,12 +12,9 @@ const ProductCartButton: React.FC<ProductCardButtonProps> = (
   };
   return (
     <div className="flex flex-row gap-x-2 justify-center items-center pb-2">
-      <button
-        onClick={handleAddItemToCart}
-        className="primary-button"
-      >
+      <Button width="" onClick={handleAddItemToCart} className="primary-button">
         افزودن به سبد خرید
-      </button>
+      </Button>
     </div>
   );
 };
