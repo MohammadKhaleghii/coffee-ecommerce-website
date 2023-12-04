@@ -16,6 +16,7 @@ import {
   removeCurrnetUser,
 } from "../../store/reducre/user/user.reducer";
 import {UserSliceTypes} from "../../store/reducre/user/user.types";
+import FormInput from "../../component/form-input";
 export default function User() {
   const dispatch = useDispatch();
   const userSlice = useSelector((state: any) => state.user);
@@ -164,6 +165,8 @@ export default function User() {
   });
   const handleDeleteCurrentUser = () => dispatch(removeCurrnetUser());
 
+  console.log(signInFormFormik.errors);
+
   return (
     <PageLayout>
       <section className="px-2">
@@ -190,47 +193,32 @@ export default function User() {
                   className="col-span-"
                   onSubmit={signInFormFormik.handleSubmit}
                 >
-                  <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      <i className="fas fa-envelope ml-2"></i>ایمیل
-                    </label>
-                    <div>
-                      <input
-                        {...signInFormFormik.getFieldProps("email")}
-                        type="email"
-                        className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="ایمیل خود را وارد کنید"
-                      />
-
-                      {signInFormFormik.touched.email &&
-                      signInFormFormik.errors.email ? (
-                        <div className="text-red-500 text-sm pt-2 font-bold">
-                          {signInFormFormik.errors.email}
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      <i className="fas fa-lock ml-2"></i>رمز عبور
-                    </label>
-                    <div>
-                      <input
-                        {...signInFormFormik.getFieldProps("password")}
-                        autoComplete="yes"
-                        type="password"
-                        className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="رمز عبور خود را وارد کنید"
-                      />
-                    </div>
-
-                    {signInFormFormik.touched.password &&
-                    signInFormFormik.errors.password ? (
-                      <div className="text-red-500 text-sm pt-2 font-bold">
-                        {signInFormFormik.errors.password}
-                      </div>
-                    ) : null}
-                  </div>
+                  <FormInput
+                    {...signInFormFormik.getFieldProps("email")}
+                    type="email"
+                    label="ایمیل"
+                    placeholder="ایمیل خود را وارد کنید"
+                    errorMessage={
+                      signInFormFormik.touched.email &&
+                      signInFormFormik.errors.email
+                        ? signInFormFormik.errors.email
+                        : ""
+                    }
+                    iconClassNameAndStyle="fas fa-envelope ml-2"
+                  />
+                  <FormInput
+                    {...signInFormFormik.getFieldProps("password")}
+                    label="رمز عبور"
+                    type="password"
+                    placeholder="رمز عبور خود را وارد کنید"
+                    errorMessage={
+                      signInFormFormik.touched.password &&
+                      signInFormFormik.errors.password
+                        ? signInFormFormik.errors.password
+                        : ""
+                    }
+                    iconClassNameAndStyle="fas fa-lock ml-2"
+                  />
 
                   <div className="flex items-center justify-center">
                     <button
