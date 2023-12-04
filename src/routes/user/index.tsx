@@ -9,7 +9,6 @@ import PageLayout from "../../layout/public-page";
 import * as Yup from "yup";
 import toast, {Toaster} from "react-hot-toast";
 import {useState} from "react";
-import ButtonSpinner from "../../component/buttons-spinner/button-spinner.component";
 import {useDispatch, useSelector} from "react-redux";
 import {
   currentUser,
@@ -17,6 +16,8 @@ import {
 } from "../../store/reducre/user/user.reducer";
 import {UserSliceTypes} from "../../store/reducre/user/user.types";
 import FormInput from "../../component/form-input";
+import {Button} from "../../styles/component/buttons/button.styled.component";
+import {Spinner} from "../../styles/component/sniper/spinner.styled.component";
 export default function User() {
   const dispatch = useDispatch();
   const userSlice = useSelector((state: any) => state.user);
@@ -221,16 +222,14 @@ export default function User() {
                   />
 
                   <div className="flex items-center justify-center">
-                    <button
+                    <Button
+                      className="flex items-center justify-center"
+                      disabled={signInLoading}
+                      width="100%"
                       type="submit"
-                      className="bg-gradient-to-r bg-[#F9C06A] font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                     >
-                      {signInLoading ? (
-                        <ButtonSpinner spinnerSize="h-5 w-5" />
-                      ) : (
-                        "ورود"
-                      )}
-                    </button>
+                      {signInLoading ? <Spinner /> : "ورود"}
+                    </Button>
                   </div>
                 </form>
 
@@ -289,16 +288,14 @@ export default function User() {
                   />
 
                   <div className="flex items-center justify-center">
-                    <button
+                    <Button
+                      className="flex items-center justify-center"
+                      width="100%"
                       type="submit"
-                      className="bg-gradient-to-r bg-[#F9C06A] font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                      disabled={signUpLoading}
                     >
-                      {signUpLoading ? (
-                        <ButtonSpinner spinnerSize="h-5 w-5" />
-                      ) : (
-                        "ثبت نام"
-                      )}
-                    </button>
+                      {signUpLoading ? <Spinner /> : "ثبت نام"}
+                    </Button>
                   </div>
                 </form>
               </div>
@@ -313,7 +310,7 @@ export default function User() {
                     className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2 w-[150px]"
                   >
                     {googleLoginLoading ? (
-                      <ButtonSpinner spinnerSize="h-5 w-5" />
+                      <Spinner />
                     ) : (
                       <i className="fab fa-google"></i>
                     )}
