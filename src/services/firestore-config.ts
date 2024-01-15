@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import {initializeApp} from "firebase/app";
 import {
   getAuth,
   signInWithPopup,
@@ -17,10 +17,10 @@ import {
   getDocs,
 } from "firebase/firestore";
 import toast from "react-hot-toast";
-import { CreateProductsOutput } from "./dto/products-output";
-import { ProductDetails } from "../component/product-card/product-card.interface";
-import { SliderInput } from "./dto/slider-input";
-import { CategoryItemInput } from "./dto/category-item-input";
+import {CreateProductsOutput} from "./dto/products-output";
+import {ProductDetails} from "../components/product-card/product-card.interface";
+import {SliderInput} from "./dto/slider-input";
+import {CategoryItemInput} from "./dto/category-item-input";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBySnltyI6tChuFktBkvFPPrn--TqK2sjw",
@@ -50,7 +50,7 @@ export const createUserDocumentFromAuth: any = async (
   const userDocRef = doc(db, "users", user.uid);
   const userSnapShot = getDoc(userDocRef);
   if (!(await userSnapShot).exists()) {
-    const { email, displayName } = user;
+    const {email, displayName} = user;
     const createAt = new Date();
 
     try {
@@ -82,7 +82,7 @@ export const createUserDocumentWithAuth: any = async (user: any) => {
   const userDocRef = doc(db, "users", user.uid);
   const userSnapShot = getDoc(userDocRef);
   if (!(await userSnapShot).exists()) {
-    const { email, displayName } = user;
+    const {email, displayName} = user;
     const createAt = new Date();
 
     try {

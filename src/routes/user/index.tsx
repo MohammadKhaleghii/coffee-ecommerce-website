@@ -15,7 +15,7 @@ import {
   removeCurrnetUser,
 } from "../../store/reducre/user/user.reducer";
 import {UserSliceTypes} from "../../store/reducre/user/user.types";
-import FormInput from "../../component/form-input";
+import FormInput from "../../components/form-input";
 import {Button} from "../../styles/component/buttons/button.styled.component";
 import {Spinner} from "../../styles/component/sniper/spinner.styled.component";
 export default function User() {

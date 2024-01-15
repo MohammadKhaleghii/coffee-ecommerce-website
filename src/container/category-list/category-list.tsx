@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import CategoryItem from "../../component/category-item/category-item";
-import { CategoryListProps } from "./category-list.interface";
+import {Link} from "react-router-dom";
+import CategoryItem from "../../components/category-item/category-item";
+import {CategoryListProps} from "./category-list.interface";
 
 const CategoryList: React.FC<CategoryListProps> = (
   props: CategoryListProps

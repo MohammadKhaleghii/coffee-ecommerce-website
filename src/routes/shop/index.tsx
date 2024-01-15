@@ -1,5 +1,5 @@
 import {DocumentData} from "firebase/firestore";
-import {ProductDetails} from "../../component/product-card/product-card.interface";
+import {ProductDetails} from "../../components/product-card/product-card.interface";
 import ProductContainer from "../../container/product-container/product-container";
 import {getShopProductsCollectionAndDocument} from "../../services/firestore-config";
 import PageLayout from "../../layout/public-page";

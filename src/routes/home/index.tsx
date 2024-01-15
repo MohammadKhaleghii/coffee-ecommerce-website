@@ -1,4 +1,4 @@
-import {ProductDetails} from "../../component/product-card/product-card.interface";
+import {ProductDetails} from "../../components/product-card/product-card.interface";
 import CategoryList from "../../container/category-list/category-list";
 import ProductCartSkeleton from "../../container/skeleton/product-cart";
 import SliderSkeleton from "../../container/skeleton/slider";

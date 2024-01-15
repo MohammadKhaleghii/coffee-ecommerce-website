@@ -1,5 +1,5 @@
-import ProductCard from "../../component/product-card/product-card";
-import { productContainerProps } from "./product-container.interface";
+import ProductCard from "../../components/product-card/product-card";
+import {productContainerProps} from "./product-container.interface";
 
 const ProductContainer: React.FC<productContainerProps> = (
   props: productContainerProps

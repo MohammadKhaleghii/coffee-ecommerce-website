@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
-import CartItem from "../../component/cart-item/cart-item";
+import CartItem from "../../components/cart-item/cart-item";
 import PageLayout from "../../layout/public-page";
-import {CartItemProps} from "../../component/cart-item/cart-item.interface";
+import {CartItemProps} from "../../components/cart-item/cart-item.interface";
 import {Toaster} from "react-hot-toast";
 
 export default function Cart() {
