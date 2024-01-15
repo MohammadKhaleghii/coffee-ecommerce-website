@@ -1,13 +1,22 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, {useState} from "react";
+import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import {CartItemProps} from "../components/cart-item/cart-item.interface";
 
-export default function PageLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PageLayout({children}: {children: React.ReactNode}) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const logoPath = "/assetes/image/logo.png";
+  const selectCartState: CartItemProps[] = useSelector(
+    (state: any) => state.cart
+  );
+
+  const calcCartTotal = () => {
+    return selectCartState.reduce(
+      (acc, currentValue) => acc + currentValue.productQTY,
+      0
+    );
+  };
+
   const navigationItem = [
     {
       title: "صفحه اصلی",
@@ -132,15 +141,20 @@ export default function PageLayout({
           </div>
         </nav>
         <div className="flex items-center justify-center">
-          <ul className="flex items-center justify-start gap-x-12 ">
+          <ul className={` flex items-center justify-start gap-x-12 `}>
             {navigationIcons.map((navItem, index) => (
-              <Link key={index} to={navItem.href}>
-                <i
-                  key={index}
-                  className={`${navItem.iconClassName} text-primary-10 text-2xl hover:text-[#F9C06A]`}
-                >
-                  {" "}
-                </i>
+              <Link className="relative" key={index} to={navItem.href}>
+                <div>
+                  <i
+                    key={index}
+                    className={`${navItem.iconClassName} text-primary-10 text-2xl hover:text-[#F9C06A]`}
+                  ></i>
+                </div>
+                {navItem.href === "/cart" && calcCartTotal() > 0 && (
+                  <div className=" absolute font-bold text-xs rounded-full bg-red-500 text-white text-center w-[11px] h-[11px] lg:w-4 lg:h-4 lg:top-1 top-0.5 right-1">
+                    {<> {calcCartTotal()}</>}
+                  </div>
+                )}
               </Link>
             ))}
           </ul>
