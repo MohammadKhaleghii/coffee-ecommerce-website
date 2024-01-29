@@ -36,6 +36,5 @@ Three types of case styles have been used in this project:
 - CSS
 - Styled-components
 - Tailwindcss
-- 
 
 
