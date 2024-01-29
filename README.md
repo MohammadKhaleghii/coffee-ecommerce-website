@@ -29,7 +29,7 @@ Three types of case styles have been used in this project:
 - **Services**: The services is a firestore config.
 
 
-## technologies
+## Technologies
 - React
 - TypeScript
 - JSX
