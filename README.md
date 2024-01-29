@@ -24,7 +24,18 @@ Three types of case styles have been used in this project:
 
 - **Layout**: Layouts allow us to overwhelm page parts with reused parts. For example, in the dashboard, we have several pages, all of which have a sidebar navigation menu. The layout helps us to avoid reusing this menu on those pages.
 
-- **routes**: Represent a complete webpage. Each page is associated with a route based on its file name. Such as the about page, the home page, the search page, and...
+- **Routes**: Represent a complete webpage. Each page is associated with a route based on its file name. Such as the about page, the home page, the search page, and...
 
-- **services**: The services is a firestore config.
+- **Services**: The services is a firestore config.
+
+
+## technologies
+- React
+- TypeScript
+- JSX
+- CSS
+- Styled-components
+- Tailwindcss
+- 
+
 
