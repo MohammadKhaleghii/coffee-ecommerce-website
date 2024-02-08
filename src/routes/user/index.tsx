@@ -3,7 +3,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
   signInWithGooglePopup,
-  signInwithGoogleEmailAndPassword,
+  signInWithGoogleEmailAndPassword,
 } from "../../services/firestore-config";
 import PageLayout from "../../layout/public-page";
 import * as Yup from "yup";
@@ -72,7 +72,7 @@ export default function User() {
     }),
     onSubmit: (values) => {
       setSigInLoading(true);
-      signInwithGoogleEmailAndPassword(values.email, values.password)
+      signInWithGoogleEmailAndPassword(values.email, values.password)
         .then((response) => {
           if (response) {
             handleCurrentUser(response.user.displayName, response.user.email);

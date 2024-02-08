@@ -32,7 +32,7 @@ const firebaseConfig = {
   measurementId: "G-C4JPJDW2HQ",
 };
 
-export const firebaseapp = initializeApp(firebaseConfig);
+export const firebaseApp = initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
@@ -68,7 +68,7 @@ export const createUserDocumentFromAuth: any = async (
   return userDocRef;
 };
 
-export const signInwithGoogleEmailAndPassword = async (
+export const signInWithGoogleEmailAndPassword = async (
   email: string,
   password: string
 ) => {
@@ -107,7 +107,7 @@ export const createAuthUserWithEmailAndPassword = async (
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const addCollecionAndDocment = async (
+export const addCollectionAndDocument = async (
   collectionKey: string,
   objectsToAdd: any[]
 ) => {
